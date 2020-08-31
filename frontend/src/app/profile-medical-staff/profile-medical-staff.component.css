@@ -1,0 +1,19 @@
+td{
+    padding: 0;
+    margin: 0;
+}
+
+h2{
+    text-align: center;
+    margin-top:0.5em;
+}
+
+form{
+    width:50%;margin-left: auto;
+    margin-right: auto;
+}
+
+#pError{
+    color:red;
+    margin-top:1em;
+}

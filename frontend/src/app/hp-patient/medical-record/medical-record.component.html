@@ -1,0 +1,149 @@
+<div class="row" style="width: 70%;margin-left: auto;margin-right: auto;">
+    <div class="col center-align">
+        <div class="card custom ">
+            <div class="card-content white-text ">
+                <span class="card-title">Medical record</span>
+            </div>
+            <div class="recordCls">
+
+           
+            <form class="col" #medicalRecordForm="ngForm">
+                <div class="row">
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="height" [disabled]="_disabled"
+                            [(ngModel)]="_medicalRecord.height" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Height</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="weight" [disabled]="_disabled"
+                            [(ngModel)]="_medicalRecord.weight" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Weight</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="diopter" [disabled]="_disabled"
+                            [(ngModel)]="_medicalRecord.diopter" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Diopter</label>
+                    </div>
+                    <div class="input-field col">
+                        <input type="text" class="validate" name="organDonor" [disabled]="_disabled"
+                            [(ngModel)]="_medicalRecord.organDonor" required autocomplete="off" />
+                        <label class="form-label" data-error="Required Field!"> Organ Donor</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        Blood type: {{_medicalRecord.bloodType}}
+                    </div>
+
+
+
+
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="A+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="A+">
+                        <label class="form-check-label" for="A+">A+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="A-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="A-">
+                        <label class="form-check-label" for="A-">A-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="B+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="B+">
+                        <label class="form-check-label" for="B+">B+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="B-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="B-">
+                        <label class="form-check-label" for="B-">B-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="AB+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="AB+">
+                        <label class="form-check-label" for="AB+">AB+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="AB-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="AB-">
+                        <label class="form-check-label" for="AB-">AB-</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="O+" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="O+">
+                        <label class="form-check-label" for="O+">O+</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="O-" name="inline" mdbInput
+                            [(ngModel)]="_medicalRecord.bloodType" value="O-" [disabled]="_disabled">
+                        <label class="form-check-label" for="O-">O-</label>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Allergic Medication :
+                        <button   class="btn-primary"  (click)="onShowAllergicMedication()"
+                            [style.background-color]="allergicMedication=== false ? 'red' : ''">show</button>
+                        <div class="row" *ngIf="!_disabled" >
+                            
+                            <button class="newAllergen" (click)="addAllergenMedication()" > add </button> 
+                        </div>
+                    </div>
+                
+
+                    <div class="col">
+                        <div class="row">      <div class="col"></div> </div>
+                        <table [hidden]="allergicMedication">
+                            <tr *ngFor="let med of allergicMedicationList"> <td class='item' >{{med.code}}</td> <td  class='item'>{{med.description}}</td> 
+                            
+                            </tr> 
+                        </table>
+
+                    
+                       
+                    </div>
+                    <div class="col">
+                        Chronic Condition :
+                        <button  class="btn-primary"   (click)="onShowChronicCondition()"
+                            [style.background-color]="chronicCondition=== false ? 'red' : ''">show</button >
+                        <div class="row" *ngIf="!_disabled" >
+                            <button class="newAllergen " (click)="addChronicCondition()"> add </button> 
+                        </div>
+                    </div>
+                   
+                    <div class="col">
+                        <div class="row">      <div class="col"></div> </div>
+                        <table [hidden]="chronicCondition">
+                            <tr *ngFor="let diag of chronicConditionList"> <td class='item' >{{diag.code}}</td> <td  class='item'>{{diag.description}}</td> 
+                            
+                            </tr> 
+                        </table>
+
+                    
+                       
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+
+     
+
+                </div>
+
+            </form>
+        </div>
+        </div>
+
+    </div>
+
+</div>

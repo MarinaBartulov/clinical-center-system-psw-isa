@@ -1,0 +1,19 @@
+.custom{
+    background-color : #5645a1;
+}
+
+.form-label {
+    transform: translateY(-14px);
+    font-size: 12px;
+}
+.newAllergen {
+    margin-left:80px;
+}
+.recordCls{
+    background: 
+    linear-gradient(rgb(255, 255, 255) 0%, rgb(54, 45, 177) 90%), 
+    linear-gradient(to right, rgb(113, 113, 121) 0%, rgb(90, 199, 233) 90%);
+
+    background-blend-mode: screen, difference, lighten;
+    
+}

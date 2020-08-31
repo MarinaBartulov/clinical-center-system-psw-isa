@@ -1,0 +1,200 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic: {{_clinic.name}}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button id="btn-menu" mat-button [matMenuTriggerFor]="menu" style=" margin: 4px">Menu</button>
+                    <mat-menu #menu="matMenu" focusFirstItem="false">
+                       <button id="btn-fast-exams" (click)="showFA()" mat-menu-item>Fast appointments</button>
+                       <button (click)="showDoctors()" mat-menu-item>Doctors</button>
+                       <button (click)="showRooms()" mat-menu-item>Rooms</button>
+                       <button (click)="showPriceList()" mat-menu-item>Price list</button>
+                    </mat-menu>    
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="map">
+      <angular-yandex-map [onlyInstance]="true" (load)="onLoad($event)"></angular-yandex-map>
+    </div>
+    <div class="container-fluid">
+        <div class="card" style="width:30%;float: left;margin-right: 1em;">
+            <div class="card-body">
+                <h5 class="card-title" style="margin-bottom: 0.3em;">Description</h5>
+                <p class="card-text" style="margin-bottom: 0.3em;">{{_clinic.description}}</p>
+                <h5 class="card-title" style="margin-bottom: 0;">Rating</h5>
+                <star-rating style="margin-top:0;padding-top:0;" value="{{_clinic.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
+                <h5 class="card-title">Address</h5>
+                <mat-icon svgIcon="location-icon" aria-hidden="false" aria-label="Clinic's address"></mat-icon>
+                <p class="card-text" style="display: inline;padding-left:0.5em;">{{_clinic.address}}</p>
+                <button class="btn btn-primary" style="display: block;margin-top:0.5em;" (click)="showMap()">See on a map</button>
+                <div *ngIf="_showMap" style="width: 97%;height:300px;margin-top:0.5em;">
+                  <angular-yandex-map [center]="[45.2671, 19.8335]" [zoom]="12">
+                    <angular-yandex-placemark  [geometry]=_coordinates></angular-yandex-placemark>
+                  </angular-yandex-map>
+                </div>
+            </div>
+        </div>
+        <div id="table-fast-exams" *ngIf="_showFA" class="card text-center">
+            <div class="card-body">
+            <h5 class="card-title">Fast appointments</h5>
+            </div>
+            <div class="row">
+                <div  name="counting-fast-exams"  class="col-sm-6" *ngFor="let fa of _freeFA">
+                  <div  class="card text-left" style="width:90%;background-color: rgb(183, 227, 255);margin-left:1.5em;">
+                    <div   class="card-body">
+                      <h5 class="card-title"><b>{{fa.nameExamType}}</b></h5>
+                      <p class="card-text"><b>Date: </b>{{fa.date[2]}}/{{fa.date[1]}}/{{fa.date[0]}}</p>
+                      <p class="card-text"><b>Time: </b>{{fa.time[0]}}:{{fa.time[1]}}0 - {{fa.time[0]+1}}:{{fa.time[1]}}0</p>
+                      <p class="card-text"><b>Doctor: </b>{{fa.fullNameDoctor}}</p>
+                      <p class="card-text"><b>Room: </b>{{fa.nameAndNumberRoom}}</p>
+                      <p class="card-text"><b>Price: </b>{{fa.price}} EUR</p>
+                      <p class="card-text"><b>Discount: </b>{{fa.discount}}%</p>
+                      <a *ngIf="_role=='ROLE_PATIENT'" name="btn-reserve-fast-exam" (click)="reserveFA(fa.id)" class="btn btn-primary">Reserve</a>
+                      <img src="assets/img/fast.png" style="width: 5em;height: 5em;float:right">
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+        </div>
+        <div *ngIf="_showPriceList" class="card text-center">
+            <div class="card-body">
+            <h5 class="card-title">Price list</h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Regular price(EUR)</th>
+                  <th>Discount(%)</th>
+                  <th>Current price(EUR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color: lightskyblue;"><td colspan="5"><b>Medical exams</b></td></tr>
+                <tr *ngFor="let examType of _examPrice;let i=index">
+                  <th>{{i+1}}</th>
+                  <td>{{examType.name}}</td>
+                  <td style="text-align: center;">{{examType.price}}</td>
+                  <td style="text-align: center;">{{examType.discount}}</td>
+                  <td style="text-align: center;">{{examType.currentPrice}}</td>
+                </tr>
+                <tr style="background-color: lightskyblue;"><td colspan="5"><b>Surgeries</b></td></tr>
+                <tr *ngFor="let surgeryType of _surgeryPrice;let i=index">
+                  <th>{{i+1}}</th>
+                  <td>{{surgeryType.name}}</td>
+                  <td style="text-align: center;">{{surgeryType.price}}</td>
+                  <td style="text-align: center;">{{surgeryType.discount}}</td>
+                  <td style="text-align: center;">{{surgeryType.currentPrice}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>
+        <div *ngIf="_showRooms" class="card text-center">
+            <div class="card-body">
+            <h5 class="card-title">Rooms</h5>
+            <table class="table table-striped">
+              <thead style="background-color: lightskyblue;">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Number</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let room of _rooms;let i = index">
+                  <th>{{i+1}}</th>
+                  <td>{{room.name}}</td>
+                  <td style="text-align: center;">{{room.number}}</td>
+                  <td style="text-align: center;">{{room.roomType}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div *ngIf="_showDoctors" class="card text-center">
+          <div class="card-body">
+          <h5 class="card-title">Doctors</h5>   
+          <!--Kada je ulogovan admin-->     
+          <div *ngIf="_role=='ROLE_CLINIC_ADMIN'"> 
+            <table class="table table-striped">
+              <thead style="background-color: lightskyblue;">
+                <tr>
+                  <th>#</th>
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let doctor of _doctors;let i = index;">
+                  <th>{{i+1}}</th>
+                  <td>{{doctor.name}}</td>
+                  <td style="text-align: center;">{{doctor.surname}}</td>
+                  <td style="text-align: center;"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+           <!--Kada je ulogovan pacijent-->
+          <div *ngIf="_role == 'ROLE_PATIENT'">
+          <p style="text-align: left;"><b>Search doctor for medical exam</b></p>
+          <form class="col white" style="width:100%;margin:auto;margin-bottom:1em;" (ngSubmit) = "searchDoctors()" #searchDoctorsForm="ngForm">
+            <div class="row">
+              <div class="input-field col">
+                <ng-select style="margin: 0.7em;"  [items]="_examTypes"
+                  bindLabel="name"
+                  placeholder="Select exam type"
+                  [(ngModel)]="_selectedType" name="type" required>
+                </ng-select>
+              </div>
+              <div class="input-field col">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Choose a date"
+                         name="dp" [(ngModel)]="_date" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="submit" [disabled]="!searchDoctorsForm.form.valid">Search</button>
+            <button class="btn btn-primary" style="width:7em;margin-right:1em;" type="reset" (click)="reset()">Reset</button>
+         </form>
+         <div class="noAppMessage" *ngIf="error" >
+          {{message}}
+         </div>
+     
+
+         <div class="row listOfDoctors"  *ngIf="_showTableAll">
+          <div><app-doctors-list [doctors]="doctors" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-doctors-list> </div> 
+      
+        
+          
+         </div>
+          </div>
+          </div>
+      </div>
+ </div>
+</div>
+
+<notifier-container></notifier-container>

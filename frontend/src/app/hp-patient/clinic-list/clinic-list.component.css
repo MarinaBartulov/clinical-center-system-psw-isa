@@ -1,0 +1,99 @@
+.container-fluid{
+    margin-top: 20px;
+    width: 250px;
+    height: 320px;
+    background: 
+    linear-gradient(rgb(255, 255, 255) 0%, rgb(54, 45, 177) 90%), 
+    linear-gradient(to right, rgb(113, 113, 121) 0%, rgb(90, 199, 233) 90%);
+
+    background-blend-mode: screen, difference, lighten;
+    border:3px solid #cecece;
+}
+.container-board {
+    border:3px solid #5645a1;
+    width: auto;
+    height: auto;
+    margin-left: 255px;
+    margin-top: 15px;
+}
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #d3d3d3;
+}
+.full {
+  color: red;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: red;
+}
+
+.spinner{
+  margin-left : auto;
+
+  margin-top : 20px;
+}
+.searching{
+  color: white;
+  font-size: 20px;
+  text-shadow: -1px 0 #5645a1, 0 1px #5645a1, 1px 0 #5645a1, 0 -1px #5645a1;
+  margin-right: auto;
+  margin-left : 10px;
+  margin-top: 50px;
+}
+.noAppMessage{
+  color: rgb(255, 255, 255);
+  text-shadow: -1px 0 #4933aa, 0 1px #4933aa, 1px 0 #4933aa, 0 -1px #4933aa;
+  margin-left : 100px;
+  margin-right : auto;
+  font-size: 30px;
+
+}
+
+.listOfDoctors{
+ 
+  margin-left: 290px;
+}
+.classBorder
+{
+  border:1px solid #5645a1;
+}
+.leftMargin20{
+  margin-left : 30px;
+}
+.leftMargin{
+  font-size: larger;
+}
+.btnNext {
+  background-color: #5645a1;
+}
+.sel{
+  margin-left : 30px;
+  margin-right : 20px;
+}
+.sel2{
+
+  width: 150px;
+  height: 35px;
+
+}
+.sel2:focus{
+  background-color: transparent;
+  
+}
+.btnSearch{
+  margin-top: 20px;
+}
+.topMargin {
+  margin-top: 30px;
+  margin-left: 260px;
+  margin-right:auto;
+}
+.sel{
+  margin-left : 30px;
+  margin-right : 20px;
+}

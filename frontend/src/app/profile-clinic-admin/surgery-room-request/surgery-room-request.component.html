@@ -1,0 +1,46 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Requests for surgery rooms</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <h3 style="text-align: center;margin: 1em;">Requests for surgery rooms</h3>   
+        <table *ngIf="_showTable" class="table table-striped">
+            <thead style="background-color: lightskyblue;">
+                <tr>
+                    <th style="width: 10%;">Date</th>
+                    <th style="width: 20%;">Patient</th>
+                    <th style="width: 25%;">Surgery type</th>
+                    <th style="width: 15%;">Find rooms</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sr of _surgeryRequests">
+                    <td>{{sr.date[2]}}/{{sr.date[1]}}/{{sr.date[0]}}</td>
+                    <td>{{sr.fullNamePatient}}</td>
+                    <td>{{sr.surgeryTypeName}}</td>
+                    <td style="padding: 0;"><button class="btn btn-primary" style="width:8em;" (click)="findRoom(sr.id)">Find room</button></td>
+                </tr>
+            </tbody>
+        </table>    
+   </div>
+   <h4 *ngIf="_showMsg" style="color: red;text-align: center;">There are no requests for surgeries.</h4>
+</div>
+<notifier-container></notifier-container>

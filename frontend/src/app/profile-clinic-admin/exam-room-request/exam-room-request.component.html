@@ -1,0 +1,51 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Requests for exam rooms</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <h3 style="text-align: center;margin: 1em;">Requests for exam rooms</h3>   
+        <table id="table-exam-requests" *ngIf="_showTable" class="table table-striped">
+            <thead style="background-color: lightskyblue;">
+                <tr>
+                    <th style="width: 10%;">Date</th>
+                    <th style="width: 10%;">Time</th>
+                    <th style="width: 20%;">Patient</th>
+                    <th style="width: 20%;">Doctor</th>
+                    <th style="width: 25%;">Exam type</th>
+                    <th style="width: 15%;">Find rooms</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr name="exam-request-row"  *ngFor="let examRequest of _examRequests">
+                    <td>{{examRequest.date[2]}}/{{examRequest.date[1]}}/{{examRequest.date[0]}}</td>
+                   <!-- <td>{{examRequest.startTime[0]}}:{{examRequest.startTime[1]}}0</td>-->
+                    <td>{{formatTime(examRequest.startTime)}}</td>
+                    <td>{{examRequest.fullNamePatient}}</td>
+                    <td>{{examRequest.doctor.fullName}}</td>
+                    <td>{{examRequest.examTypeName}}</td>
+                    <td style="padding: 0;"><button id="{{examRequest.id}}" name="btn-exam-request" class="btn btn-primary" style="width:8em;" (click)="findRoom(examRequest.id)">Find room</button></td>
+                </tr>
+            </tbody>
+        </table>    
+   </div>
+   <h4 *ngIf="_showMsg" style="color: red;text-align: center;">There are no requests for exam rooms.</h4>
+</div>
+

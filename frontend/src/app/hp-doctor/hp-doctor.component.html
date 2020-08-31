@@ -1,0 +1,149 @@
+<div id="div-page" class="container-fluid">
+    <div class="container-fluid" style="padding: 1%">
+        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark">-->
+          <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+            <div class="navbar-header">
+              <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+            </div> 
+            <div class="mx-auto order-0">
+                <!--<a class="navbar-brand mx-auto disabled" href="#">Doctor: {{_currentDoctor.name}} {{_currentDoctor.surname}}</a>-->
+                <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Doctor: {{_currentDoctor.name}} {{_currentDoctor.surname}}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <!--<a class="nav-link" [routerLink]="['/medicalStaffProfile']">Profile</a>-->
+                        <button class="btn btn-outline-secondary" [routerLink]="['/medicalStaffProfile']" style="color:darkblue;margin: 4px"> Profile </button>
+                    </li>
+                    <li class="nav-item">
+                        <!--<a class="nav-link" [routerLink]="" (click)="clickedLogout()">Log out</a>-->
+                        <button class="btn btn-outline-secondary" (click)="clickedLogout()" style="color:darkblue;margin: 4px">Log out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+          <ul class="nav flex-column nav-pills" style="width: 20%;color: blue; background-color: lightskyblue;float:left;">
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-secondary" (click)="showAllPatients()" style="width:100%;color:darkblue;">All patients in the clinic</button>
+            </li>
+            <!--<li class="nav-item">
+              <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;">Start a medical exam</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" [routerLink]="" style="width:100%;color:darkblue;height:fit-content">Make an appointment for an exam or surgery</button>
+              </li>-->
+            
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" (click)="showFormRequest()" style="width:100%;color:darkblue;">Absence request</button>
+            </li>  
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-secondary" [routerLink]= "['/workCalendar']" style="width:100%;color:darkblue;">Work calendar</button>
+
+            </li>
+            
+          </ul>
+    
+          <div *ngIf="_showFormRequest" style="width: 60%;margin-left: 15%;float:left;">
+            <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">Request for paid vacation or absence</h3>
+            <form style="margin:auto;background-color:lightskyblue;width:70%;padding:1em;" #absenceForm="ngForm" (ngSubmit) = "sendRequestAbsence()">
+                <mat-form-field style="margin-left:35%;">
+                    <mat-label>Type of absence</mat-label>
+                    <mat-select  [(ngModel)]="_selectedType" name="typeAbsence"  required>
+                       <mat-option  *ngFor="let type of _typesAbsence" [value]="type.value">
+                         {{type.viewValue}}
+                       </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <ngb-datepicker style="margin-left:7%;background-color: white;" #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+                </ngb-datepicker>
+                
+                <ng-template #t let-date let-focused="focused">
+                  <span class="custom-day"
+                        [class.focused]="focused"
+                        [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+                <button class="btn btn-primary" style="background-color: green;margin-top:1em;margin-right:2em;width:6em;" type="submit" [disabled]="!absenceForm.form.valid">Send</button>
+                <button class="btn btn-primary" style="background-color: red;margin-top:1em;margin-right:2em;width:6em;" type="reset" (click)="cancelAbsence()">Cancel</button>
+            </form>
+      </div>
+      <div *ngIf="_showList" style="float:left;margin-left:13%;width:60%;">
+        <h4 style="margin-top:1em;">Search patients</h4>
+        <form class="col white" (ngSubmit) = "searchPatients()" #searchPatientsForm="ngForm" style="border-style: solid;border-color: lightskyblue;">
+          <div class="row">
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a serial number" [(ngModel)]="_patientSearch.serialNumber" pattern="[0-9]|^(?![\s\S])" maxlength="13" name="serialNumber" autocomplete="off">
+            </div>
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a patient's name" [(ngModel)]="_patientSearch.name" name="namePatient" autocomplete="off">
+            </div>
+            <div class="input-field col">
+              <input class="form-control" type="text" placeholder="Enter a patient's last name" [(ngModel)]="_patientSearch.surname"  name="surnamePatient" autocomplete="off">
+            </div>             
+          </div>
+          <button class="btn btn-primary" style="width:7em;margin-right:1em;margin-bottom:1em;" type="submit" [disabled]="!searchPatientsForm.form.valid">Search</button>
+          <button class="btn btn-primary" style="width:7em;margin-right:1em;margin-bottom:1em;" type="button" (click)="reset()">Reset</button>
+          </form>
+          <div  *ngIf="_showFilterForm">
+          <h4 style="margin-top:1em;">Filter patients</h4>
+          <div class="form-group">
+            <strong>City</strong>
+            <select class="form-control"
+            [(ngModel)]="_city" name="city">
+              <option></option>
+              <option *ngFor="let city of _cities" value="{{city}}">{{city}}</option>      
+            </select>
+          </div>
+        </div>
+        <h3 style="text-align:center;margin-top: 0.5em; margin-bottom: 0.5em;">All patients in the clinic</h3>
+        <table class="table" style="width:90%;margin:auto;margin-top: 1em;">
+            <thead style="background-color:lightskyblue;">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Serial number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let patient of _patients | tableFilter: _city;let i = index">
+                <th style="background-color: lightskyblue;" scope="row">{{i+1}}</th>
+                <td style="background-color: white;">{{patient.name}}</td>
+                <td style="background-color: white;">{{patient.surname}}</td>
+                <td style="background-color: white;">{{patient.serialNumber}}</td>
+                <td style="background-color: white;">{{patient.email}}</td>
+                <!--<td><a [routerLink]="[{ outlets: { hpDoctor: ['patientDetails' , patient.id] } }]">See details...</a></td>-->
+                <td style="background-color: white;"><a [routerLink]="" (click)="showDetails(patient.id)">See details...</a></td>
+            
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div *ngIf="_showPatient" style="float:left;margin-left:18%;width:40%;">
+        <h3 style="text-align: center;margin-top: 0.5em; margin-bottom: 0.5em;">Patient: {{_currentPatient.name}}  {{_currentPatient.surname}}</h3>
+        <table class="table" style="width:100%;border-style: solid;border-width: 0.1;border-color: darkblue;">
+          <tr><td style="background-color: lightskyblue;"><b>Serial number:</b></td><td style="background-color: white;">{{_currentPatient.serialNumber}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Email:</b></td><td style="background-color: white;">{{_currentPatient.email}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Address:</b></td><td style="background-color: white;">{{_currentPatient.address}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>City:</b></td><td style="background-color: white;">{{_currentPatient.city}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Country:</b></td><td style="background-color: white;">{{_currentPatient.country}}</td></tr>
+          <tr><td style="background-color: lightskyblue;"><b>Phone number:</b></td><td style="background-color: white;">{{_currentPatient.phoneNumber}}</td></tr>
+        </table>
+        <button style="float: left;width:7em;" type="button" class="btn btn-primary btn-sm" [routerLink] = "['/patientProfile', _currentPatient.id]" >Profile</button>
+        <button style="float: right;width:7em;" type="button" class="btn btn-primary btn-sm" (click)="goBack()">Back</button>
+      </div>
+          
+      </div>
+    
+      <notifier-container></notifier-container>
+</div>
+

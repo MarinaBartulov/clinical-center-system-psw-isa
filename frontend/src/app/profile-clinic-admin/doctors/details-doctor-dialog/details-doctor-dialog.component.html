@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Details about doctor {{data.name}} {{data.surname}}</h1>
+<div mat-dialog-content>
+  <form  #detailsForm="ngForm">
+      <table>
+          <tr><td><b>Name:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.name' name="name" disabled></td></tr>
+          <tr><td><b>Surname:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.surname' name="surname" disabled></td></tr>
+          <tr><td><b>Email:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.email' name="email" disabled></td></tr>
+          <tr><td><b>Address:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.address' name="address" disabled></td></tr>
+          <tr><td><b>City:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.city' name="city" disabled></td></tr>
+          <tr><td><b>Country:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.country' name="country" disabled></td></tr>
+          <tr><td><b>Phone number:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.phoneNumber' name="phoneNumber" disabled></td></tr>
+          <tr><td><b>Serial number:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'data.serialNumber' name="serialNumber" disabled></td></tr>
+          <tr><td><b>Working hours start:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'workingHoursStart' name="workingHoursStart" disabled></td></tr>
+          <tr><td><b>Working hours end:</b></td><td><input style="color:white" type="text" [(ngModel)] = 'workingHoursEnd' name="workingHoursEnd" disabled></td></tr>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+<button style="float:right;" type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>

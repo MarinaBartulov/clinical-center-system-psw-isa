@@ -1,0 +1,67 @@
+<div class="row container-board" *ngIf="hide">
+    <div class="col classBorder">
+
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th> Rating</th>
+                <th>Reviews</th>
+            </tr>
+
+            <tr class="hoverCls" *ngFor="let doctor of _doctors" (click)="doctorForRate(doctor)">
+
+
+                <td>{{doctor.name}}</td>
+                <td>{{doctor.surname}}</td>
+                <td>{{doctor.rating}}</td>
+                <td>{{doctor.numberOfReviews}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div *ngIf="!hide">
+
+
+
+
+    <h6 style="text-align: left;"> Dear patient,
+        <br> <br>
+        Recently you have been examined by our doctor {{_doctor.name}} {{_doctor.surname}}. <br>
+        Please rate his service :
+
+
+        <ng-template #t let-fill="fill">
+            <span class="stars" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+            </span>
+        </ng-template>
+
+        <ngb-rating [(rate)]="_rate" [starTemplate]="t" [readonly]="false" max="5"></ngb-rating> <br><br>
+
+
+        Thanks you, we wish you fast heal.
+    </h6>
+    <div mat-dialog-content>
+        <div class='panel-body'>
+            <div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <div class="center">
+
+        <button class="btn btn-primary mr-1" *ngIf="!hide" (click)="onSubmit()"> <span class="redClass"
+                matBadge={{_rate}} matBadgeColor="warn" matBadgeOverlap="false" matBadgeSize="small"> Rate </span>
+        </button>
+        <button class="btn btn-secondary" (click)="onCancelDialog()">Cancel</button>
+    </div>
+</div>
+<notifier-container></notifier-container>

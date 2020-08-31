@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing rooms</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="float: left; width:28%; border-right-style: solid;border-width: 1px;padding-right: 2em;">
+    <button mat-raised-button style="background-color: rgb(131, 245, 131);width:12em;height:3em;margin:2em;margin-left:6.3em;" (click)="addNewRoom()">Add a new room</button>
+    <h3 style="text-align: center;">Search room</h3>
+    <div>
+        <form (ngSubmit) = "onClickedSearch()" #roomForm="ngForm">
+            <b>Name:</b> <input type="text" [(ngModel)]="_searchRoom.name" name="name"  #name="ngModel"/>
+            <b>Number:</b> <input type="number" [(ngModel)]="_searchRoom.number" name="number"  #number="ngModel"/>
+            <label id="example-radio-group-label">Type</label>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="_searchRoom.roomType" name="type">
+            <mat-radio-button class="example-radio-button" *ngFor="let type of types" [value]="type">
+                {{type}}
+            </mat-radio-button>
+            </mat-radio-group>
+            <button style="width:7em;" type="submit" class="btn btn-primary">Search</button>
+            <button style="margin-left: 0.5em;width:7em;" type="reset" (click)="resetForm()" class="btn btn-primary">Reset</button>  
+            <button style="margin-left: 0.5em;width:7em;" type="reset" class="btn btn-primary" (click)="showAllRooms()">Show all</button>  
+        </form>
+      </div>
+    </div>
+    <div style="width:70%;float: right;">
+        <h2 style="text-align: center;margin:0.5em;">Rooms:</h2>
+        <p *ngIf="_showMsg" style="color:red;text-align: center;"><b>Your search did not match any rooms...</b></p>
+    <table *ngIf="_showTable" style="width:100%;;">
+        <thead>
+            <tr>
+                <th style="width:45%;">Name</th>
+                <th style="width:10%;">Number</th>
+                <th style="width:15%;">Type</th>
+                <th style="width:15%;">Update</th>
+                <th style="width:15%;">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of _foundRooms">
+              <td>{{room.name}}</td>
+              <td>{{room.number}}</td>
+              <td>{{room.roomType}}</td>
+              <td><button class="btn btn-primary" (click)="updateRoom(room.id)">Update</button></td>
+              <td><button class="btn btn-danger" (click)="removeRoom(room.id)">Remove</button></td>
+          </tr>  
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+
+
+
+

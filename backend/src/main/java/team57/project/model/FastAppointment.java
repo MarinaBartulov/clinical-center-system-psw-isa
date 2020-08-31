@@ -1,0 +1,181 @@
+package team57.project.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.tomcat.jni.Local;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+@Entity
+public class FastAppointment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name="dateFA", nullable = false)
+    private LocalDate dateFA;
+    @Column(name="timeFA", nullable = false)
+    private LocalTime timeFA;
+    @Column(name="duration", nullable = false)
+    private int duration; //in minutes
+    @Column (name = "done", nullable = false)
+    private boolean done;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="examType_id", nullable=false)
+    private ExamType examType;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="room_id", nullable=false)
+    private Room room; //only exam room, not surgery room
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="doctor_id", nullable=false)
+    private Doctor doctor;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="patient_id") //at the beginning it is a free appointment
+    private Patient patient;
+    @Column(name="price", nullable = false)
+    private double price;
+    @Column(name="discount", nullable = false)
+    private double discount;
+    @Column(name="reserved", nullable = false)
+    private boolean reserved;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="clinic_id", nullable=false)
+    private Clinic clinic;
+
+    @Version
+    private Long version;
+
+    public FastAppointment(){
+
+    }
+
+    public FastAppointment(LocalDate dateFA,LocalTime timeFA, int duration, ExamType examType, Room room, Doctor doctor, Patient patient, double price, double discount, boolean reserved, Clinic clinic) {
+        this.dateFA = dateFA;
+        this.timeFA = timeFA;
+        this.duration = duration;
+        this.examType = examType;
+        this.room = room;
+        this.doctor = doctor;
+        this.patient = patient;
+        this.price = price;
+        this.discount = discount;
+        this.reserved = reserved;
+        this.clinic = clinic;
+        this.done = false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDateFA() {
+        return dateFA;
+    }
+
+    public void setDateFA(LocalDate dateFA) {
+        this.dateFA = dateFA;
+    }
+
+    public LocalTime getTimeFA() {
+        return timeFA;
+    }
+
+    public void setTimeFA(LocalTime timeFA) {
+        this.timeFA = timeFA;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public boolean getDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public ExamType getExamType() {
+        return examType;
+    }
+
+    public void setExamType(ExamType examType) {
+        this.examType = examType;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    @JsonIgnore
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+}

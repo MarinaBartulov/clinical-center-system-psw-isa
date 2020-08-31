@@ -1,0 +1,86 @@
+<div class="container-fluid background-img">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#">{{message}} {{_signUpUser.name}}
+                {{_signUpUser.surname}} </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <div id="hidden2">
+                <li class="nav-item">
+
+                    <a class="nav-link" (click)="showProfileInfo()">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="btn-patient-logout" (click)="onClickedLogout()">Log out</a>
+                </li>
+                 </div>
+                 <div id="notHidden2">
+                    <li class="nav-item">
+
+                        <a class="nav-link" (click)="onClickedBack()" >Back</a>
+                    </li>
+                 </div>
+            </ul>
+        </div>
+    </nav>
+    <div id="hidden">
+
+
+        <ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">
+            <li class="nav-item">
+                <button class="link" (click)="showMedicalRecordInfo()"> Medical record </button>
+            </li>
+            <li class="nav-item">
+                <button id="btn-list-of-clinics" class="link" (click)="showListOfClinics()"> List of clinics </button>
+            </li>
+            <li class="nav-item">
+                <button class="link" (click)="showMedicalExams()"> List of medical exams </button>
+            </li>
+            <li class="nav-item">
+                <button class="link" (click)="showSurgeries()"> List of surgeries </button>
+            </li>
+            <li class="nav-item">
+                <button class="link">Scheduled medical exams</button>
+            </li>
+            <li class="nav-item">
+                <button class="link">Scheduled surgeries</button>
+            </li>
+            <li class="nav-item" *ngIf="numOfReviews != 0">
+                <button class="link" (click)="giveReview()"><span matBadge = {{numOfReviews}} matBadgeColor="warn"  matBadgeOverlap="false"  matBadgeSize="small">   Give review to  a doctor </span>  </button>
+            </li>
+            <li class="nav-item" *ngIf="clinicsReviews != 0">
+                <button class="link" (click)="clinicReview()"><span matBadge = {{clinicsReviews}} matBadgeColor="warn"  matBadgeOverlap="false"  matBadgeSize="small">   Give review to  a clinic </span>  </button>
+            </li>
+        </ul>
+    </div>
+    <div id="notHidden">
+
+
+        <ul class="nav flex-column bg-dark" style="width: 20%;color: azure;float:left;">
+            <li class="nav-item">
+                <button class="link" (click)="showMedicalRecordInfo()"> Medical record </button>
+            </li>
+            <li class="nav-item">
+                <button class="link">Start medical exam </button>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+
+    <app-form-component *ngIf="show" [showHome]="showHome" [show]="show" [_signUpUser]="_signUpUser">
+    </app-form-component>
+    <app-medical-record *ngIf="showMedicalRecord" [_medicalRecord]="_medicalRecord" [_disabled]="_disabled" [_patientId]="_patientId"></app-medical-record>
+    <app-clinic-list *ngIf="showClinics" [_patientId]="_patientId"> </app-clinic-list>
+    <!-- <app-doctors-list *ngIf="showDoctors"> </app-doctors-list> -->
+    <app-medical-exams-list *ngIf="showExams" [_medicalExams] = "_medicalExams"></app-medical-exams-list>
+    <app-surgery-list *ngIf="showSurge" [_surgeries] = "_surgeries"></app-surgery-list>
+</div>
+<notifier-container></notifier-container>

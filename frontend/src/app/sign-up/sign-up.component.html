@@ -1,0 +1,94 @@
+<div class="row" style="width: 60%;margin-left: auto;margin-right: auto;">
+    <div class="col center-align">     
+            <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                            <span class="card-title">Registration form</span>
+                                    </div>
+                    <form class="col white" (ngSubmit) = "onClickedRegister()" #userRegistrationForm="ngForm" >
+                            <div class="row">
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="name" #userName="ngModel"
+                                                    [(ngModel)]="_signUpUser.name" required  autocomplete="off"/>
+                                            <label data-error = "Required Field!"> Name</label>
+                                    </div>
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="surname" #surname="ngModel"
+                                                    [(ngModel)]="_signUpUser.surname" required autocomplete="off" />
+                                            <label data-error = "Required Field!"> Surname</label>
+                                    </div>
+
+                            </div>
+                            <div class="row">
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="city" #city="ngModel"
+                                                    [(ngModel)]="_signUpUser.city" required autocomplete="off" />
+                                            <label data-error = "Required Field!"> City</label>
+                                    </div>
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="address" #adress="ngModel"
+                                                    [(ngModel)]="_signUpUser.address" required autocomplete="off" />
+                                            <label data-error = "Required Field!"> Address</label>
+                                    </div>
+
+                            </div>
+                            <div class="row">
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="country" #country="ngModel"
+                                                    [(ngModel)]="_signUpUser.country" required  autocomplete="off" />
+                                            <label data-error = "Required Field!"> Country</label>
+                                    </div>
+                                    <div class="input-field col">
+                                            <input type="email" class="validate" name="email" #email="ngModel"
+                                                    [(ngModel)]="_signUpUser.email" required autocomplete="off" [pattern] = "emailPattern" />
+                                            <label data-error = "Invalid email!"> someone@email.com</label>
+                                    </div>
+
+                            </div>
+                            <div class="row">
+                                    <div class="input-field col">
+                                            <input type="password" class="validate" name="password" (change)="onPasswordChange()"
+                                                    #password="ngModel" [(ngModel)]="_signUpUser.password" required autocomplete="off" minlength="6" />
+                                            <label [attr.data-error] = "password.errors != null?(password.errors.required? 'Required Field!':'Minimum 6 Characters Needed'):'' "> Password</label>
+                                    </div>
+                                    <div class="input-field col">
+                                            <input type="password" (change)="onConfirnChange()" id="confPassword" class="validate" [(ngModel)]="confirmPassword" name="confirmPassword" required autocomplete="off"  minlength="6"
+                                             [pattern] = "_signUpUser.password" [style.border-color]="message=== 'changed' ? 'red' : ''" />
+                                            <label data-error = "Invalid password"  > Re-entry password  {{message}}</label>
+                                           
+                                    </div>
+
+                            </div>
+                            <div class="row">
+                                    <div class="input-field col">
+                                            <input type="number" class="validate" name="phoneNumber" 
+                                                    #phoneNumber="ngModel" [(ngModel)]="_signUpUser.phoneNumber" required autocomplete="off"  />
+                                            <label data-error = "Required Field!"> Phone number</label>
+                                    </div>
+                                    <div class="input-field col">
+                                            <input type="text" class="validate" name="serialNumber"
+                                                    #serialNumber="ngModel" [(ngModel)]="_signUpUser.serialNumber" pattern="[0-9]{13,13}" required autocomplete="off"   />
+                                            <label [attr.data-error] = "serialNumber.errors != null?(serialNumber.errors.required? 'Required Field!':'13 Numbers Needed'):'' "> Serial number</label>
+                                            
+                                    </div>
+
+                            </div>
+                            <div class="row">
+                                    <div class="input-field col">
+
+                                            <button style="width:70%" class="btn-large btn-submit" [disabled] = "!userRegistrationForm.valid" type="submit"> Submit</button>
+                                    </div>
+                                    <div class="input-field col">
+
+                                        <button style="width:70%" class="btn-large btn-submit"  type="button" (click)="back()">Back</button>
+                                    </div>
+
+                            </div>
+                          
+                    </form>
+            </div>
+           
+    </div>
+    
+</div>
+
+<notifier-container></notifier-container>

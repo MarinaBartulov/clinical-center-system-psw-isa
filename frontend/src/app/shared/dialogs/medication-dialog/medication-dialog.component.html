@@ -1,0 +1,17 @@
+<h3 style="text-align: center;"> Medication Codebook </h3>
+<div mat-dialog-content>
+  <div class='panel-body'>
+    <div class='table-responsive' style="margin-bottom: 2%;">
+        <table class='table' style="margin-top: 5%;">
+           
+            <tr> <th class='names'>Code</th> <th class='names'>Description</th> <th class='names'> Add </th> </tr> 
+            <tr *ngFor="let med of _medications"> <td class='item' >{{med.code}}</td> <td  class='item'>{{med.description}}</td> 
+                <td><button style="background-color: green;width:6em;margin-left: 25%;" type="button" class="btn btn-primary item" (click)='clickAddMedication(med)'>Add</button></td>
+            </tr> 
+        </table>      
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>
+</div>

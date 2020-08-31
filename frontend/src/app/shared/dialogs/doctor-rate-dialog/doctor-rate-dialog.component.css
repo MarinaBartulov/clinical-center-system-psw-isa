@@ -1,0 +1,38 @@
+
+.center{
+    margin-right: auto;
+    margin-left: auto; 
+}
+    
+.stars {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: red;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: red;
+  }
+
+  th, td {
+    /* border-top: 1px solid #ddd;*/
+     padding: 2px;
+     text-align: left;
+   }
+ td {
+     border-top: 1px solid #ddd;
+ }
+ .hoverCls:hover {background-color: #666262;}
+
+ .container-board {
+     border:3px solid #5645a1;
+     width: auto;
+     height: auto;
+     margin-top: 15px;
+ }

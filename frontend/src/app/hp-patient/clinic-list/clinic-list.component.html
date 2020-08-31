@@ -1,0 +1,96 @@
+<form class="col" (ngSubmit) = "searchClinics()" #searchDoctorsForm="ngForm">
+
+  
+    <div id="show-list-clinics" class="row topMargin">
+        <p class="leftMargin"> <b>Select exam type and date:  </b> </p>
+      <div class="sel">
+        <ng-select id="select-exam-type"  [items]="_examTypes"  bindLabel="name" placeholder="Select exam type"
+         [(ngModel)]="_selectedType" name="type" required> 
+         <ng-template ng-option-tmp let-item="item" >
+            <div title="{{item.name}}" id="{{item.id}}">{{item.name}}</div>
+            </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <div class="input-group">
+          <input id="date-picker-input" class="form-control sel2" placeholder="Choose a date"
+                 name="dp" [(ngModel)]="_date" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+          <div class="input-group-append ">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="leftMargin20">
+            <button class="btn btn-primary"  type="submit" id="btn-search"
+            [disabled]="!searchDoctorsForm.form.valid">Search</button>
+          <button class="btn btn-primary"  type="reset" (click)="reset()">Reset</button>
+        </div>    
+    </div>
+    </div>
+  
+    </form>
+    <div class="row">
+        <mat-spinner class="spinner" *ngIf="showSpinner2" > Searching </mat-spinner> 
+        <p class="searching" *ngIf="showSpinner2" > <b> Searching </b> </p>
+      
+
+    </div>
+
+   
+<div id="div-list-clinics" class="container-board" *ngIf="!showSpinner"  >
+  
+    <div class="row">
+
+     
+  
+        <div  class="clinics" *ngFor="let clinic of _clinics;" >
+            <div class="container-fluid">
+              
+
+                <img src="https://sb-content-file.s3-ap-northeast-1.amazonaws.com/smallbridge_favicon.png"
+                    height="80px">
+                <h2>{{clinic.name}}</h2>
+                <h5>{{clinic.address}}</h5>
+                <p>{{clinic.description}} <br>
+                    Rating:
+
+                    <ng-template #t let-fill="fill">
+                        <span class="stars" [class.full]="fill === 100">
+                            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                        </span>
+                    </ng-template>
+
+                    <ngb-rating [(rate)]="clinic.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> <br>
+                    Reviews: {{clinic.numberOfReviews}}
+
+                </p>
+                <button id="{{clinic.id}}" class="btn btn-primary" (click) = "readMore(clinic.id)" title="Show available doctors!">Doctors </button>
+                <button name="btn-clinic-profile" class=" btn btn-primary leftMargin20" title = "Show clinic profile!" (click)="showClinicProfile(clinic.id)">Profile</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="div-no-clinics" class="noAppMessage" *ngIf="numberOfClinics == 0" >
+       {{message}}
+    </div>
+  
+
+    <div class="row">
+        <button class="btn btn-primary" *ngIf="startIndex > 3 " (click)="previousClinics()" title = "Show previous clinics"> {{leftArrow}} </button>
+        <div class="col"></div>
+        <div class="col"></div>
+        <button class=" btn btn-primary" *ngIf="numberOfClinics>startIndex" (click)="nextClinics()" title = "Show next clinics ">{{rightArrow}}</button>
+
+    </div>
+   
+
+</div>
+<div class="row listOfDoctors"  *ngIf="showDoctors">
+    <div><app-doctors-list [doctors]="doctors" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-doctors-list> </div> 
+
+   
+    
+</div>

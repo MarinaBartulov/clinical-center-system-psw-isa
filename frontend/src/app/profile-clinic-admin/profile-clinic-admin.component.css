@@ -1,0 +1,15 @@
+h2{
+    text-align: center;
+}
+
+#div-page{
+        margin: 0;
+        padding : 0;
+        background-image: url('slika2.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        height:100vh;
+   
+}
+

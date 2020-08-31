@@ -1,0 +1,76 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Searching rooms for reservation</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div *ngIf="_showInfo" class="card" style="float:left;width:30%;margin-right:4em;">
+        <div class="card-body">
+             <h4 class="card-title">Surgery request</h4>
+             <p>Date: {{_surgeryStart.date[2]}}/{{_surgeryStart.date[1]}}/{{_surgeryStart.date[0]}}</p>
+             <p>Duration: 1h</p>
+             <p>Surgery type: {{_surgeryStart.surgeryTypeName}}</p>
+             <p>Patient: {{_surgeryStart.fullNamePatient}}</p>
+             <hr>
+        </div>
+        <div class="card-body">
+        <h4>Note:</h4>   
+        <p>There are created terms for rooms and doctors for current week and the next week.</p>
+        <p>So if you can't find any free term for room and doctors who can perform this type of surgery,
+            you should reject the doctor's request for surgery.
+        </p>
+        <button class="btn btn-danger" (click)="rejectSurgery()">Reject</button>
+        </div>
+    </div>
+    <div *ngIf="_showAvailable" class="card" style="width:60%;margin-left: 2em;">
+       <div class="card-body">
+           <h4 class="card-title" style="color: green;">There are available terms for the requested date:</h4>
+           <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:20%;">Name</th>
+                        <th style="width:20%;">Number</th>
+                        <th style="width:15%;">Date</th>
+                        <th style="width:20%;">Time</th>
+                        <th style="width:25%;">Find Doctors</th>
+                       <!-- <th style="width:10">Calendar</th>-->
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr *ngFor="let room of _availableRooms">
+                        <td>{{room.name}}</td>
+                        <td>{{room.number}}</td>
+                        <td>{{room.date[2]}}/{{room.date[1]}}/{{room.date[0]}}</td>
+                        <td>{{formatTime(room.startTime)}}-{{formatTime(room.endTime)}}</td>
+                        <td><button class="btn btn-primary" style="background-color: green;" (click)="reserveDoctors(room)">Find Doctors</button></td>
+                        <!--<td><button class="btn btn-primary" (click)="seeCalenar(room)">Calendar</button></td>-->
+                    </tr>
+                </tbody>  
+           </table>
+       </div> 
+    </div>
+    <div *ngIf="_showNoAvailable" class="card" style="width:65%;margin-left: 2em;">
+        <div class="card-body">
+            <h4 class="card-title" style="color: red;">There are no available rooms for the requested date:</h4>
+            <h5 class="card-title">You need to reject this request:</h5>
+            <!--<button class="btn btn-primary" (click)="changeDate()"> Check next day </button>-->
+        </div> 
+     </div>
+
+    </div>
+    <notifier-container></notifier-container>

@@ -1,0 +1,128 @@
+<div id="div-page" class="container-fluid">
+
+    <div class="container-fluid"  style="padding: 1% " >
+        <nav aria-disabled="true" class="navbar navbar-expand-md navbar-light" style="background-color:  lightskyblue; padding-left: 0;">
+            <div class="navbar-header">
+                <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+            </div>
+            <div class="mx-auto order-0">
+                <a id="name" class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinical center administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="clickedProfile()" style="color:darkblue; margin: 4px"> Profile </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="clickedLogout()" style="color: darkblue; margin: 4px" > Log out </button>                  
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    
+        <ul class="nav flex-column nav-pills" style="color: blue; background-color: lightskyblue; float:left;">   
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" (click)="clickNewRequest()" style=" width: 24em; color:darkblue;"> <span matBadge={{numOfRequests}} matBadgeOverlap="false"  matBadgeSize="medium" [matBadgeHidden]="numOfRequests == 0">  Requests for registration  </span></button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue;" (click)="clickMedicationCodebook()"> Medication Codebook </button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickDiagnosisCodebook()"> Diagnosis Codebook </button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickRegisterClCAdmin()"> Register clinical center administrator</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue;" (click)="clickRegisterClinicAdmin()"> Register clinic administrator</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-sm btn-outline-secondary" style="width: 24em; color:darkblue" (click)="clickRegisterClinic()"> Register clinic</button>
+            </li>
+        </ul>
+        
+    
+        <div class='panel panel-primary' *ngIf = 'showInformation'>
+            <div class='panel-body'>
+                <div class='table-responsive'>
+                    <table class='table' style="margin-top: 5%;">
+                        <tr><th style="text-align: center;" colspan="2"> Personal Information </th> </tr>
+                        <tr><th>Name:</th> <td> {{_currentAdmin.name}} </td> </tr> 
+                        <tr><th>Surname:</th> <td> {{_currentAdmin.surname}} </td></tr> 
+                        <tr><th>Email:</th> <td> {{_currentAdmin.email}} </td> </tr>
+                        <tr><th>Address:</th> <td> {{_currentAdmin.address}} </td> </tr>  
+                        <tr><th>City:</th> <td> {{_currentAdmin.city}} </td> </tr>   
+                        <tr><th>Country:</th> <td> {{_currentAdmin.country}} </td> </tr> 
+                        <tr><th>Phone Number:</th> <td> {{_currentAdmin.phoneNumber}} </td> </tr>
+                        <tr><th>Serial Number:</th> <td> {{_currentAdmin.serialNumber}} </td> </tr>
+                    </table>
+                    <button style="width:12em;margin-right: 5%;margin-left:5%; background-color: darkslategray;"  type="button"  class="btn btn-primary"  (click)="clickedChangePassword()"> Change Password </button> 
+                    <button style="width:12em;margin-right: 5%;margin-left:5%; background-color: darkslategray;"  type="button" class="btn btn-primary"  (click)='clickEditInformation()'> Edit Information </button>    
+                </div>
+            </div>
+        </div>
+    
+        <div class='panel panel-primary' *ngIf ='showMedicationCodebook'>
+            <div class='panel-body'>
+                <div class='table-responsive' style="margin-bottom: 5%;">
+                    <table class='table' style="margin-top: 5%;">
+                        <tr><th style="text-align: center;" colspan="3"> Medication Codebook </th> </tr>
+                        <tr> <th style="text-align: center;">Code</th> <th style="text-align: center;">Description</th> <th style="text-align: center;"> Edit </th> </tr> 
+                        <tr *ngFor="let med of _medications"> <td>{{med.code}}</td> <td>{{med.description}}</td> 
+                            <td><button style="margin-right: 5%;margin-left:5%;background-color: green;width:6em;" type="button" class="btn btn-primary" (click)='clickEditMedication(med)'>Edit</button></td>
+                        </tr> 
+                    </table>
+                    <button style="width:6em;margin-right: 5%;margin-left:5%;  background-color: darkslategray; " type="button"  class="btn btn-primary" (click)="clickBack()">Back</button>
+                    <button style="width:12em;margin-right: 5%;margin-left:5%;  background-color: darkslategray;" type="button"  class="btn btn-primary" (click)='clickNewMedication()' >New Medication</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class='panel panel-primary' *ngIf ='showDiagnosisCodebook'>
+            <div class='panel-body'>
+                <div class='table-responsive' style="margin-bottom: 5%;">
+                    <table class='table' style="margin-top: 5%;">
+                        <tr><th style="text-align: center;" colspan="3"> Diagnosis Codebook </th> </tr>
+                        <tr> <th style="text-align: center;">Code</th> <th style="text-align: center;">Description</th> <th style="text-align: center;"> Edit </th> </tr> 
+                        <tr *ngFor="let d of _diagnosis"> <td>{{d.code}}</td> <td>{{d.description}}</td> 
+                            <td><button style="margin-right: 5%;margin-left:5%;background-color: green;width:6em;" type="button" class="btn btn-primary" (click)='clickEditDiagnosis(d)'>Edit</button></td>
+                        </tr>
+                    </table>
+                    <button style="width:6em;margin-right: 5%;margin-left:5%;  background-color: darkslategray;" type="button"  class="btn btn-primary" (click)="clickBack()">Back</button>
+                    <button style="width:12em;margin-right: 5%;margin-left:5%;  background-color: darkslategray;" type="button"  class="btn btn-primary" (click)="clickNewDiagnosis()">New Diagnosis</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class='panel panel-primary' *ngIf = 'showNewRequests' style="margin-left: 5%;" >
+                <div class="card" style="background: lightskyblue;  margin-top: 2%;" >
+                    <div class="card-content">
+                        <!--<span class="card-title"> </span>-->
+                        <h3 class="card-title" style= " color: darkblue"> New requests for registration </h3>
+                    </div>
+                    <table class='table'>
+                      <tr> <th>Name</th> <th>Surname</th> <th>Email</th> <th>Address</th> <th>City</th> <th>Country</th> <th style="text-align: center;">Accept</th> <th style="text-align: center;">Reject</th> </tr> 
+                      <tr *ngFor="let user of userRequests"> <td>{{user.name}}</td> <td>{{user.surname}}</td> <td>{{user.email}}</td> <td>{{user.address}}</td> <td>{{user.city}}</td> <td>{{user.country}}</td>
+                        <td><button style="margin-right: 5%;margin-left:5%;background-color: green;width:8em;" type="button" class="btn btn-primary" (click)='clickAcceptRequest(user.id)' >Accept</button></td>
+                        <td><button style="margin-right: 5%;margin-left:5%;width:8em;" type="button"  class="btn btn-danger" (click)='clickRejectRequest(user.id,user.email,user.name,user.surname)'>Reject</button></td>
+                     </tr>
+                      <tr> 
+                          <td style="text-align: center; background-color: lightskyblue;" > <button style="width:8em;margin-right: 5%;margin-left:5%;  background-color: darkslategray;" type="button"  class="btn btn-primary" (click)="clickBack()">Back</button></td> 
+                    
+                      </tr>
+                    </table>                   
+                </div>
+        </div>    
+    </div>
+    <notifier-container></notifier-container>
+</div>
+
+
+
+    
+
+
+

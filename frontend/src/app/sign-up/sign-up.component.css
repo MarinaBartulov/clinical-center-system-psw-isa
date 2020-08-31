@@ -1,0 +1,17 @@
+div.sm-jumbotrn{
+    margin: 0px;
+    padding: 2rem;
+    background-color: aquamarine;
+    color: #ffffff;
+}
+button.btn-submit{
+    background-color: cornflowerblue;
+    color: #fff;
+    width: 100%;
+}
+button.btn-submit:focus, button-btn-submit:hover{
+    background-color:green
+}
+.row {
+    margin-bottom: 10px;
+}

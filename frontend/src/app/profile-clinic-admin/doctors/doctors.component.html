@@ -1,0 +1,161 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing doctors</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="float: left; width:28%; border-right-style: solid;border-bottom-style: solid;border-width: 1px;padding-right: 2em;padding-bottom: 2em;">
+        <button mat-raised-button style="background-color: rgb(131, 245, 131);width:12em;height:3.5em;margin-left:6.5em;margin-top:2em;margin-bottom:2em;" (click)="showForm()">Register a new doctor</button>
+        <h3 style="text-align: center;">Search doctors</h3>
+        <div>
+            <form (ngSubmit) = "onClickedSearch()" #doctorForm="ngForm">
+                <b>Name:</b> <input type="text" [(ngModel)]="_searchDoctor.name" name="name"  #name="ngModel"/>
+                <b>Surname:</b> <input type="text" [(ngModel)]="_searchDoctor.surname" name="surname"  #number="ngModel"/>
+                <b>Serial number:</b><input type="text" [(ngModel)]="_searchDoctor.serialNumber" name="serialNumber" #serialNumber="ngModel" pattern="[0-9]*" autocomplete="off">
+                <button style="width:7em;" type="submit" class="btn btn-primary" [disabled]="!doctorForm.form.valid">Search</button>
+                <button style="margin-left: 0.5em;width:7em;" type="reset" (click)="resetForm()" class="btn btn-primary">Reset</button>  
+                <button style="margin-left: 0.5em;width:7em;" type="reset" class="btn btn-primary" (click)="showAllDoctors()">Show all</button>  
+                <p *ngIf="_emptyForm" style="color:red">You have to enter at least one information for search.</p>
+            </form>
+          </div>
+        </div>
+        <div style="width:70%;float: right;">
+            <h2 style="text-align: center;margin:0.5em;">Doctors:</h2>
+            <p *ngIf="_showMsg" style="color:red;text-align: center;"><b>Your search did not match any doctors...</b></p>
+        <table *ngIf="_showTable" style="width:100%;;">
+            <thead>
+                <tr>
+                    <th style="width:30%;">Name</th>
+                    <th style="width:30%;">Surname</th>
+                    <th style="width:20%;">Serial number</th>
+                    <th style="width:15%;">Details</th>
+                    <th style="width:15%;">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doctor of _foundDoctors">
+                  <td>{{doctor.name}}</td>
+                  <td>{{doctor.surname}}</td>
+                  <td>{{doctor.serialNumber}}</td>
+                  <td><button class="btn btn-primary" (click)="showDetails(doctor.id)">Details</button></td>
+                  <td><button class="btn btn-danger" (click)="removeDoctor(doctor.id)">Remove</button></td>
+              </tr>  
+            </tbody>
+        </table>
+        <div class="card" style="background: lightskyblue;width:90%;margin:auto;padding-bottom: 2em;" *ngIf="_showForm" >
+            <div class="card-content">
+                    <span class="card-title">Register a new doctor</span>
+            </div>
+            <form class="col white" style="width:100%;margin:auto;" (ngSubmit) = "registerNewDoctor(newDoctorForm)" #newDoctorForm="ngForm">
+                <div class="row">
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.name" name="name"  #name="ngModel" placeholder="Enter a name" required autocomplete="off"/>
+                        <small id="nameHelp" class="form-text text-muted">Name is required.</small>
+                    </div>
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.surname" name="surname"  #surname="ngModel" placeholder="Enter a surname" required autocomplete="off"/>  
+                        <small id="surnameHelp" class="form-text text-muted">Surname is required.</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.serialNumber" name="serialNumber"  #serialNumber="ngModel" placeholder="Enter a serialnumber" pattern="[0-9]{13,13}" required autocomplete="off"/>
+                        <small id="serialNumberHelp" class="form-text text-muted">Serial number is required.</small>
+                    </div>
+                    <div class="input-field col">
+                        <input class="validate" type="email" [(ngModel)]="_newDoctor.email" name="email"  #email="ngModel" placeholder="Enter an email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required autocomplete="off"/>  
+                        <small id="emailHelp" class="form-text text-muted">Email is required.</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col">
+                        <input class="validate" type="password" [(ngModel)]="_newDoctor.password" name="password"  #email="ngModel" placeholder="Enter a password" minlength="6" required autocomplete="off"/>
+                        <small id="passwordHelp" class="form-text text-muted">Password is required.</small>
+                    </div>
+                    <div class="input-field col">
+                        <input class="validate" type="password" [(ngModel)]="_confirmPassword" name="passwordConfirm"  #emailConfirm="ngModel" placeholder="Confirm the password" minlength="6" [pattern]="_newDoctor.password" required autocomplete="off"/>  
+                        <small id="passwordConfirmHelp" class="form-text text-muted">Confirmation is required.</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.phoneNumber" name="phoneNumber"  #phoneNumber="ngModel" placeholder="Enter a phone number" required autocomplete="off"/>
+                        <small id="phoneNumberHelp" class="form-text text-muted">Phone number is required.</small>
+                    </div>
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.address" name="address"  #address="ngModel" placeholder="Enter an address" required autocomplete="off"/>  
+                        <small id="addressHelp" class="form-text text-muted">Address is required.</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.city" name="city"  #city="ngModel" placeholder="Enter a city" required autocomplete="off"/>
+                        <small id="cityHelp" class="form-text text-muted">City is required.</small>
+                    </div>
+                    <div class="input-field col">
+                        <input class="validate" type="text" [(ngModel)]="_newDoctor.country" name="country"  #country="ngModel" placeholder="Enter a country" required autocomplete="off"/>  
+                        <small id="countryHelp" class="form-text text-muted">Country is required.</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col">
+                        <mat-form-field style="background-color:lightskyblue;width:90%;">
+                            <mat-label>Exam types</mat-label>
+                            <mat-select [(ngModel)]="_examTypesId" multiple #examTypes="ngModel" name="examTypes" required>
+                              <mat-option *ngFor="let examType of _examTypeList" [value]=examType.id>{{examType.name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div class="input-field col">
+                        <mat-form-field style="background-color: lightskyblue;width:90%;">
+                            <mat-label>Surgery types</mat-label>
+                            <mat-select [(ngModel)]="_surgeryTypesId" multiple #surgeryTypes="ngModel" name="surgeryTypes" required>
+                              <mat-option *ngFor="let surgeryType of _surgeryTypeList" [value]=surgeryType.id>{{surgeryType.name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+    
+        <table id="newDoc" style="width:100%;margin: auto;">
+            <tr><td><b>Working hours start: </b></td><td><div class="form-group">
+                <ngb-timepicker [formControl]="ctrl" required [(ngModel)]="_workingHoursStartTemp" name="workingHoursStart"  [minuteStep]="0"></ngb-timepicker>
+                <div *ngIf="ctrl.valid" class="small form-text text-success">Good choice</div>
+                <div class="small form-text text-danger" *ngIf="!ctrl.valid">
+                  <div *ngIf="ctrl.errors['required']">Select the start of working time</div>
+                  <div *ngIf="ctrl.errors['tooLate']">It's too late</div>
+                  <div *ngIf="ctrl.errors['tooEarly']">It's too early</div>
+                </div>
+              </div></td>
+                <td><b>Working hours end: </b></td><td><div class="form-group">
+                    <ngb-timepicker [formControl]="ctrl1" required [(ngModel)]="_workingHoursEndTemp" name="workingHoursEnd"  [minuteStep]="0"></ngb-timepicker>
+                    <div *ngIf="ctrl1.valid" class="small form-text text-success">Good choice</div>
+                    <div class="small form-text text-danger" *ngIf="!ctrl1.valid">
+                      <div *ngIf="ctrl1.errors['required']">Select the end of working time</div>
+                      <div *ngIf="ctrl1.errors['tooLate']">It's too late</div>
+                      <div *ngIf="ctrl1.errors['tooEarly']">It's too early</div>
+                    </div>
+                  </div></td></tr>             
+        </table>
+        <button style="width:7em;margin-top:0.5em;margin-right:2em;margin-bottom: 1em;"  type="submit" class="btn btn-primary" [disabled]="!newDoctorForm.form.valid || !ctrl1.valid || !ctrl.valid">Register</button>
+        <button style="width:7em;margin-top:0.5em;margin-right:2em;margin-bottom: 1em;" type="reset" (click)="cancelForm(newDoctorForm)" class="btn btn-danger">Cancel</button>  
+
+        </form>
+    </div>
+    </div>
+    </div>

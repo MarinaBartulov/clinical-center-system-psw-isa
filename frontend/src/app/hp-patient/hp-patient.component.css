@@ -1,0 +1,36 @@
+span {
+    text-align: left;
+
+}
+.validate:focus + .form-label,
+.validate:valid + .form-label {
+transform: translateY(-20px);
+font-size: 12px;
+}
+button.link { background:none;border:none;
+    color:rgb(43, 123, 202);
+    margin-left: 10px;
+    margin-block-start: 4px;
+    margin-block-end:2px;
+ }
+button.link:focus{
+    color:rgb(88, 153, 190);
+}
+.titleMessage {
+    font-size: 23px;
+}
+.mat-sort-header-container {
+    align-items: center;
+}
+.background-img{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('background-patient2.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height:100vh; 
+    height : auto;
+}

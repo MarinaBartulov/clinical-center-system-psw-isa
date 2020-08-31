@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Password change</h1>
+<div mat-dialog-content>
+  <p>Hello, {{this._currentUser.name}}!</p>
+  <p>This is you first log in to the system. Please change your initial password.</p>
+  <p>You are not allowed to continue your work if you do not change it.</p>
+  <form  #passwordForm="ngForm">
+      <table>
+          <tr><td><b>Please enter your old password:</b></td><td><input type="password" [(ngModel)] = 'data.oldPassword' name="oldUsername" required></td></tr>
+          <tr><td><b>Please enter your new password:</b></td><td><input type="password" [(ngModel)] = 'data.newPassword' name="newUsername" required minlength="6"></td></tr>
+          <tr><td><b>Please confirm your new password:</b></td><td><input type="password" [(ngModel)] = '_confirmPassword' name="confirmPassword" required min="6" [pattern]="data.newPassword"></td></tr>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success"  [disabled]="!passwordForm.form.valid" (click)="changePassword()">Change</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="logout()">Log out</button>
+  <p *ngIf="_showError" style="color: red;">Your old password is incorrect. Please try again.</p>
+  <p *ngIf="_showMsg" style="color:green">You have successfully changed your password. Please log in to the system again.</p>
+</div>

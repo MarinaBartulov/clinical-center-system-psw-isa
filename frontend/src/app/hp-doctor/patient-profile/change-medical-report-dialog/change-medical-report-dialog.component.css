@@ -1,0 +1,21 @@
+td{
+    margin: 0;
+    padding: 0;
+   /* background-color: gray;*/
+    color: white;
+}
+th{
+    background-color: gray;
+}
+
+button{
+    width:7em;
+}
+
+h1{
+    text-align: center;
+}
+textarea {
+    display:block;
+    height: auto; 
+}

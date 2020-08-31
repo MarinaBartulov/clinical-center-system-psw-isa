@@ -1,0 +1,10 @@
+<div *ngIf="_success" class="success">
+    <h1>Your account is now activated and you are able to use our medical services. </h1>
+    <button class="btn btn-primary" (click)="goToLogin()">Log in</button>
+
+</div>
+<div *ngIf="_error" class="error">
+    <h1>Something went wrong with the acount activation.</h1>
+    <h2>{{_errorMessage}}</h2>
+</div>
+

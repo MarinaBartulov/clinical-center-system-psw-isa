@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Medical report</h1>
+<div mat-dialog-content>
+    <form  #medicalReportForm="ngForm">
+        <table>
+            <tr><td><b>Doctor:</b></td><td> {{data.doctor.name}}  {{data.doctor.surname}} </td></tr>
+            <tr><td><b>Date:</b></td><td> {{data.date}} </td></tr>
+            <tr><td><b>Time:</b></td><td> {{data.time}} </td></tr>
+        </table>
+        <p><b> Description: </b></p>
+        <textarea rows="5" wrap="hard" name="description" [(ngModel)] = 'data.description' required [disabled] = '!_canChange'> </textarea>              
+    </form>
+    
+    <div class="panel panel-primary">
+            <div class="row"> 
+                    <div style="margin-left: 3em" >
+                        <table class='table table-condensed'  style=" width:13em; margin-top:0.8em; margin-bottom:0.8em">
+                            <tr><th class="mr" style="text-align: center;" colspan="2">Diagnoses:</th> </tr> 
+                            <tr *ngFor="let d of _diagnosis"> <td style="text-align: center;"> {{d.description}} </td> <td> <button type="button" class="btn btn-outline-danger btn-rounded waves-effect" style="width: 4.5em; margin:0.1em; padding:0.1em"  [disabled] = '!_canChange' (click)="clickDeleteDiagnosis(d)"> Delete </button></td> </tr>
+                        </table>
+                        <button style="width:5em; margin-left:4em" type="button" class="btn btn-outline-success btn-rounded waves-effect" [disabled] = '!_canChange' (click)="clickAddDiagnosis()"> Add</button> 
+                    </div>
+                    <div  style="margin-left: 6em" >
+                        <table  class='table table-condensed' style=" margin-top:0.8em; margin-bottom:0.8em;  width:13em;">
+                            <tr><th class="mr" style="text-align: center;">Precriptions: </th> </tr> 
+                            <tr *ngFor="let p of _prescriptions"> <td style="text-align: center;"> {{p.medication.description}} </td> </tr>
+                        </table>
+                    </div>                  
+                </div>
+    </div>
+    
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" [disabled]="!medicalReportForm.form.valid" >Save</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>

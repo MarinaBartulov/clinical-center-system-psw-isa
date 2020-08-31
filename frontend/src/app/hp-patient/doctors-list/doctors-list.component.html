@@ -1,0 +1,69 @@
+<div class="row ">
+  <div class="col classBorder container-board">
+
+    <div class="row">
+
+    <table matSort (matSortChange)="sortData($event)" class="table" id="myTable">
+      <tr class="startRow">
+        <th mat-sort-header="name">Doctor</th>
+        <th mat-sort-header="surname">Surname</th>
+        <th mat-sort-header="rating">Rating</th>
+        <th mat-sort-header="numberOfReviews">Reviews</th>
+   
+      </tr>
+
+      <tr id="{{doctor.id}}" *ngFor="let doctor of sortedDoctors"  (click)="showDoctorTimes(doctor)">
+
+
+        <td>{{doctor.name}}</td>
+        <td>{{doctor.surname}}</td>
+        <td>{{doctor.rating}}</td>
+        <td>{{doctor.numberOfReviews}}</td>
+
+
+
+      </tr>
+    </table>
+
+    <!-- <p style="text-align: left;"><b>Search doctor for medical exam</b></p> -->
+    <form class="row search"  (ngSubmit)="searchDoctors()"
+      #searchDoctorsForm="ngForm">
+
+      <div class="row">
+        <div class="input-field col">
+          <input class="form-control" type="text" placeholder="Name" [(ngModel)]="_docName" name="nameDoctor"
+            autocomplete="off">
+        </div>
+        <div class="input-field col">
+          <input class="form-control" type="text" placeholder="Surname" [(ngModel)]="_docSurname" name="surnameDoctor"
+            autocomplete="off">
+        </div>
+        <div class="input-field col">
+          <input class="form-control" type="number" placeholder="Rating" [(ngModel)]="_rating" min="0" max="5"
+            name="rating">
+        </div>
+
+
+      </div>
+      <div class="btnSearch">
+        <button class="btn btn-primary btnMargin"  type="submit"
+        [disabled]="!searchDoctorsForm.form.valid">Search</button>
+      <button class="btn btn-primary" id="btn-reset"  type="reset" (click)="reset()">Reset</button>
+      </div>
+     
+    </form>
+  </div>
+
+</div>
+  <div class="col classBorder container-board" *ngIf="showTimes">
+
+  
+
+      <app-appointments-list (valueChange)="resetChild($event)" [appointments]="appointments" [doctor] = "doctor" [doctorReq] = "doctorReq" [_patientId]="_patientId" ></app-appointments-list>
+  
+
+  </div>
+
+
+
+</div>

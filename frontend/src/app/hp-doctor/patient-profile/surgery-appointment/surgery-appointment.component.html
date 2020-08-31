@@ -1,0 +1,45 @@
+<div class="card newSurgery">
+    <div class="card-content">
+      <span class="card-title" style="color: rgb(255, 255, 255); margin-left: 13em;">
+        <h3>New surgery </h3>
+      </span>
+    </div>
+    <form class="col formCss" (ngSubmit) = "sendSurgeryRequest()" #surgeryForm="ngForm">
+  
+      <div class="row topMargin">
+  
+        <div class="sel">
+          <ng-select [items]="_surgeryTypes" bindLabel="name" placeholder="Select surgery type" [(ngModel)]="_selectedType"
+            name="type" required>
+            <ng-template ng-option-tmp let-item="item">
+              <div title="{{item.name}}">{{item.name}}</div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div>
+          <div class="input-group">
+            <input class="form-control sel2" placeholder="Choose a date" name="dp" [(ngModel)]="_date" ngbDatepicker
+              #d="ngbDatepicker" autocomplete="off" [minDate]="minDate" required>
+            <div class="input-group-append ">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+  
+        <div>
+          <div class="leftMargin20">
+            <button style="width:7em;margin-right:1em;" class="btn btn-primary" type="submit" [disabled]="!surgeryForm.form.valid">Send</button>
+            <button style="width:7em;margin-right:1em;" class="btn btn-primary" type="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+   
+  
+      
+  
+    </form>
+  
+   
+  
+  </div>
+  

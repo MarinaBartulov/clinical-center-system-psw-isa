@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Managing exam and surgery types</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="float: left; width:30%; border-right-style: solid;border-width: 1px;padding-right: 2em;">
+    <button  mat-raised-button style="width:10em;height:4em;margin:1em;margin-left: 2.6em;background-color: rgb(131, 245, 131)" (click)="addNewExamType()">New exam type</button>
+    <button mat-raised-button style="width:10em;height:4em;margin-top:0.5em;margin-bottom: 0.5em;background-color: rgb(131, 245, 131);" (click)="addNewSurgeryType()">New surgery type</button>
+    <h3 style="text-align: center;">Search type of exam or surgery</h3>
+    <div>
+        <form (ngSubmit) = "onClickedSearch()" #typeForm="ngForm">
+            <b>Name:</b> <input type="text" [(ngModel)]="_searchName" name="name"  #name="ngModel" required autocomplete="off"/>
+            <label id="example-radio-group-label">Type</label>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="_searchType" name="type" required>
+            <mat-radio-button class="example-radio-button" *ngFor="let type of typesOfTypes" [value]="type">
+                {{type}}
+            </mat-radio-button>
+            </mat-radio-group>
+            <button style="width:7em;margin-left: 0.5em;" type="submit" class="btn btn-primary" [disabled]="!typeForm.form.valid">Search</button>
+            <button style="margin-left: 0.5em;width:7em;" type="reset" (click)="resetForm()" class="btn btn-primary">Reset</button>  
+            <p></p>
+            <button style="margin: 0.5em;width:9.7em;height:3.5em;" type="reset" class="btn btn-primary" (click)="showAllExamTypes()">Show all exam types</button> 
+            <button style="margin: 0.5em;width:9.7em;height:3.5em;" type="reset" class="btn btn-primary" (click)="showAllSurgeryTypes()">Show all surgery types</button>   
+        </form>
+      </div>
+    </div>
+    <div style="width:69%;float: right;">
+        <h2 style="text-align: center;margin:0.5em;">Types of {{_chosenTypeOfTypes}}:</h2>
+        <p *ngIf="_showMsg" style="color:red;text-align: center;"><b>Your search did not match any types...</b></p>
+    <table *ngIf="_showTable" style="width:100%;;">
+        <thead>
+            <tr>
+                <th style="width:26%;">Name</th>
+                <th style="width:37%;">Description</th>
+                <th style="width:10%;">Price (&euro;)</th>
+                <th style="width:12%;">Discount (%)</th>
+                <th style="width:5%">Duration</th>
+                <th style="width:10%;">Update</th>
+                <th style="width:10%;">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of _foundTypes">
+              <td>{{type.name}}</td>
+              <td>{{type.description}}</td>
+              <td style="text-align: center;">{{type.price}}</td>
+              <td style="text-align: center;">{{type.discount}}</td>
+              <td style="text-align: center;">{{type.duration}}h</td>
+              <td><button class="btn btn-primary" (click)="updateType(type.id, _chosenTypeOfTypes)">Update</button></td>
+              <td><button class="btn btn-danger" (click)="removeType(type.id, _chosenTypeOfTypes)">Remove</button></td>
+          </tr>  
+        </tbody>
+    </table>
+</div>
+</div>

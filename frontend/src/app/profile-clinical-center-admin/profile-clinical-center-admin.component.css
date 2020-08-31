@@ -1,0 +1,46 @@
+#div-page{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('slika2.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height:100vh;
+}
+body{
+    background-color: lightskyblue;
+}
+th {
+    background-color: lightskyblue;
+}
+td{
+    background-color: beige;
+}
+td.b{
+    background-color: white;
+}
+.table-responsive{
+    margin: auto;
+    height: 40%;
+    width: 60%;
+}
+.panel-body{
+    margin: auto;
+    height: 40%;
+    width: 60%;
+}
+#logo{
+    cursor:default;
+    pointer-events:none;
+}
+
+#name{
+    cursor:default;
+    pointer-events:none;
+}
+.mat-badge-content {
+    background: red;
+    color: white;
+}

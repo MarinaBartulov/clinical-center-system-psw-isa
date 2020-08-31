@@ -1,0 +1,140 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Business report</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="card text-center" style="width:80%;margin-left:auto;margin-right: auto;margin-top: 1em;">
+        <div class="card-header" style="background-color: lightskyblue;">
+            Business report
+        </div>
+        <div class="card-body">
+            <button  class="btn btn-primary myClass" (click)="showClinicRating()">Clinic's rating</button>
+            <div *ngIf="_showClinicRating" style="margin-bottom:1em;">
+                <h4>{{_clinic.name}} </h4><star-rating style="margin-top:0;padding-top:0;" value="{{_clinic.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating> ({{_clinic.rating|number:'1.2-2'}})
+            </div>
+            <button  class="btn btn-primary myClass" (click)="showDoctorsRating()">Doctors' rating</button>
+            <div *ngIf="_showDoctorsRating" style="margin-bottom:1em;">
+                <table class="table table-striped">
+                    <thead style="background-color: lightskyblue;">
+                      <tr>
+                        <th>#</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Serial number</th>
+                        <th colspan="2" style="text-align: center;">Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let doctor of _doctors;let i = index;">
+                        <th>{{i+1}}</th>
+                        <td style="text-align: center;width:30%;">{{doctor.name}}</td>
+                        <td style="text-align: center;width:30%;">{{doctor.surname}}</td>
+                        <td style="text-align: center;width:20%;">{{doctor.serialNumber}}</td>
+                        <td style="text-align: center;width:15%;padding-top: 0.2em;padding-bottom: 0;"><star-rating style="margin: 0;padding: 0;" value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+                        <td style="text-align: center;width:15%;">({{doctor.rating|number:'1.2-2'}})</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <button  class="btn btn-primary myClass" (click)="showIncome()">Income</button>
+            <div *ngIf="_showIncome" style="margin-bottom:1em;">
+                <form class="col white" style="width:90%;margin:auto;margin-bottom:1em;" (ngSubmit) = "getIncome()" #getIncomeForm="ngForm">
+                    <div class="row">
+                      <div class="col">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Choose the start date"
+                                   name="dp1" [(ngModel)]="_startDate" ngbDatepicker #d1="ngbDatepicker" autocomplete="off" required>
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                            </div>                     
+                        </div>
+                    </div>
+                      <div class="col">
+                        <div class="input-group">
+                          <input class="form-control" placeholder="Choose the end date"
+                                 name="dp2" [(ngModel)]="_endDate" ngbDatepicker #d2="ngbDatepicker" autocomplete="off" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                          </div>
+                        </div>
+                      </div>    
+                      <div class="col">
+                        <div class="input-group-btn">
+                            <div style="height: 3em;" class="input-group-prepend">
+                              <span class="input-group-text">Income:</span>
+                              <input id="price" type="number" class="form-control" name="income" [(ngModel)]="_income" readonly/>
+                              <span class="input-group-text">&euro;</span>
+                            </div>
+                      </div>            
+                    </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="width:8em;margin-right:2em;" [disabled]="!getIncomeForm.form.valid">Get income</button>
+                    <button class="btn btn-primary" type="button" style="width:8em;margin-right:2em;" (click)="reset()">Reset</button>
+                </form>
+            </div>
+            <button  class="btn btn-primary myClass" (click)="showCharts()">Charts</button>
+            <div *ngIf="_showCharts" style="margin-bottom:1em;">
+              <h3 style="margin-bottom:1em;">Select date for reports</h3>
+              <form class="col white" style="width:90%;margin:auto;margin-bottom:1em;" (ngSubmit) = "getReports()" #getReportsForm="ngForm">
+                <div class="row">
+                  <div class="col">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Select a day for daily report"
+                               name="dp1" [(ngModel)]="_selectedDay" ngbDatepicker #d1="ngbDatepicker" autocomplete="off" required>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                        </div>                     
+                    </div>
+                </div>
+                <div class="col">
+              </div>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width:8em;margin-right:2em;" [disabled]="!getReportsForm.form.valid">Get</button>
+                </form>
+
+                <div *ngIf="_showAllReports">
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Daily report'"
+                    [description]="'Number of medical exams during the selected day'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_hours" [xAxis]="xAxis1"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'"></jqxChart>                            
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Monthly report'"
+                    [description]="'Number of medical exams during the selected month'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_weeks" [xAxis]="xAxis2"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
+                  </jqxChart>    
+                  <jqxChart style="margin-left:auto;margin-right:auto;"
+                    [width]="getWidth()" [height]="400"
+                    [title]="'Annual report'"
+                    [description]="'Number of medical exams during the selected year'"
+                    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+                    [titlePadding]="titlePadding" [source]="_months" [xAxis]="xAxis3"
+                    [seriesGroups]="seriesGroups" [colorScheme]="'scheme01'">
+                  </jqxChart>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

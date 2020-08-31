@@ -1,0 +1,32 @@
+<div class="container-fluid" style= "margin: 1%">
+
+    <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+    </mwl-demo-utils-calendar-header>
+    
+    <div [ngSwitch]="view">
+      <mwl-calendar-month-view [refresh]="refresh"
+        *ngSwitchCase="'month'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [activeDayIsOpen]="true"
+        (eventClicked)="eventClicked($event)"
+      >
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (eventClicked)="eventClicked($event)"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="'day'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (eventClicked)="eventClicked($event)"
+      >
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+  
+  <button style="width:6em;margin-top: 1%; margin-left: 2%; margin-bottom: 2%; background-color: darkslategray;"  type="button"  class="btn btn-primary"  (click)="clickedBack()"> Back </button> 

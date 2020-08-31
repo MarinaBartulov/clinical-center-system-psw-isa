@@ -1,0 +1,144 @@
+<div id="div-page" class="container-fluid">
+
+<div class="container-fluid" style="padding: 1%">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color: darkblue;">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">          
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-outline-secondary" (click)="clickedProfile()" style="color:darkblue;margin: 4px"> My profile </button>
+                    
+                    </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-secondary" (click)="clickedLogout()" style="color: darkblue;margin: 4px" > Log out </button>
+                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="nav flex-column nav-pills" style="width: 22%; color: blue; background-color: lightskyblue; float:left;"> 
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >Clinic's profile</a>-->
+            <button class="btn btn-sm btn-outline-secondary" (click) = "clickedClinicProfile()" style="width:100%;color:darkblue;">Clinic's profile</button>
+        </li>  
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >General info</a>-->
+            <button class="btn btn-sm btn-outline-secondary" (click) = "clickedGeneralInfo()" style="width:100%;color:darkblue;">General info</button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "['/examRooms', _clinic.id]" >Rooms</a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/examRooms', _clinic.id]" style="width:100%;color:darkblue;">Rooms</button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "['/examSurgeryTypes', _clinic.id]" >Exam and surgery types</a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/examSurgeryTypes', _clinic.id]" style="width:100%;color:darkblue;">Exam and surgery types</button>
+        </li>  
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "['/doctorsInClinic', _clinic.id]">Doctors</a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/doctorsInClinic', _clinic.id]" style="width:100%;color:darkblue;">Doctors</button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link" href="#">Fast appointments</a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/fastAppointments', _clinic.id]" style="width:100%;color:darkblue;">Fast appointments</button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button id="btn-exam-room" class="btn btn-sm btn-outline-secondary" [routerLink] = "['/examRoomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfExamRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfExamRequests == 0">Requests for exam room</span></button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/surgeryRoomRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfSurgeryRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfSurgeryRequests == 0">Requests for surgery room</span></button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link"[routerLink] = "['/absenceRequests', _clinic.id]" ><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></a>-->
+            <button class="btn btn-sm btn-outline-secondary" [routerLink] = "['/absenceRequests', _clinic.id]" style="width:100%;color:darkblue;"><span matBadge={{_numOfRequests}} matBadgeOverlap="false"   matBadgeSize="medium" [matBadgeHidden]="_numOfRequests == 0">Requests for vacation or absence</span></button>
+        </li>
+        <li class="nav-item">
+            <!--<a class="nav-link" href="#" >Business report</a>-->
+            <button class="btn btn-sm btn-outline-secondary" (click) = "clickedBusinessReport()" style="width:100%;color:darkblue;">Business report</button>
+        </li>
+    </ul>
+
+    
+    <div *ngIf="_showInfo" style="width: 50%;margin-left: 15%;float:left;">
+        <h2 style="margin-top: 0.5em; margin-bottom: 0.5em">Personal information</h2>
+        <table class="table" style="margin-left:auto;margin-right:auto;">
+            <tbody>
+                <tr>
+                    <th style="background-color: lightskyblue;">First name:</th>
+                    <td style="background-color: white;">{{_currentAdmin.name}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Last name:</th>
+                    <td style="background-color: white;">{{_currentAdmin.surname}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Email:</th>
+                    <td style="background-color: white;">{{_currentAdmin.email}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Serial number:</th>
+                    <td style="background-color: white;">{{_currentAdmin.serialNumber}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Address:</th>
+                    <td style="background-color: white;">{{_currentAdmin.address}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">City:</th>
+                    <td style="background-color: white;">{{_currentAdmin.city}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Country:</th>
+                    <td style="background-color: white;">{{_currentAdmin.country}}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: lightskyblue;">Phone number:</th>
+                    <td style="background-color: white;">{{_currentAdmin.phoneNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button style="margin-right: 15%;margin-left:15%;width:13em; background-color: darkslategray;" class="btn btn-primary" (click)="clickedEdit()">Update information</button> 
+        <button style="margin-right: auto;margin-left: auto;width:13em; background-color: darkslategray;" class="btn btn-primary" (click)="clickedChangePassword()">Change password</button>      
+  </div>
+
+  <div *ngIf="_showClinic" style="width: 50%;margin-left: 15%;float:left;">
+    <h2 style="margin-top: 0.5em; margin-bottom: 0.5em">General information about the clinic</h2>
+    <table class="table" style="margin-left:auto;margin-right:auto;">
+        <tbody>
+            <tr>
+                <th style="background-color: lightskyblue;width:25%;">Name:</th>
+                <td style="background-color: white;">{{_clinic.name}}</td>
+            </tr>
+            <tr>
+                <th style="background-color: lightskyblue;width:25%;">Description:</th>
+                <td style="background-color: white;">{{_clinic.description}}</td>
+            </tr>
+            <tr>
+                <th style="background-color: lightskyblue;width:25%;">Address:</th>
+                <td style="background-color: white;">{{_clinic.address}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button style="margin-right: 15%;margin-left:15%;width:6em;background-color: darkslategray;" class="btn btn-primary" (click)="clickedEditClinic()">Update</button>
+     <button style="margin-right: auto;margin-left: auto;width:6em;background-color: darkslategray;" class="btn btn-primary" (click)="clickedBack()">Back</button>      
+</div>
+
+
+</div>
+
+</div>
+<notifier-container></notifier-container>
+
+

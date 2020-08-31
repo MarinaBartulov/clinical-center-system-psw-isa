@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Updating type of medical exam or surgery</h1>
+<div mat-dialog-content>
+  <form  #typeForm="ngForm">
+      <table>
+          <tr><td><b>Name:</b></td><td><input type="text" [(ngModel)] = 'data.name' name="name" required autocomplete="off"></td></tr>
+          <tr><td><b>Description:</b></td><td><input type="text" [(ngModel)] = 'data.description' name="description" required autocomplete="off"></td></tr>
+          <tr><td><b>Price:</b></td><td><input type="number" [(ngModel)] = 'data.price' name="price" required autocomplete="off"></td></tr>
+          <tr><td><b>Discount:</b></td><td><input type="number" [(ngModel)] = 'data.discount' name="discount" required autocomplete="off"></td></tr>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" [disabled]="!typeForm.form.valid">Update</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>

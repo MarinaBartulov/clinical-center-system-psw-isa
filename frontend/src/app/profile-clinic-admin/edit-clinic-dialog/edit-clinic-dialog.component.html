@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Updating information about the clinic</h1>
+<div mat-dialog-content>
+  <form  #clinicForm="ngForm">
+      <table>
+          <tr><td><b>Name:</b></td><td><input type="text" [(ngModel)] = 'data.name' name="name" required></td></tr>
+          <tr><td><b>Description:</b></td><td><input type="text" [(ngModel)] = 'data.description' name="description" required></td></tr>
+          <tr><td><b>Address:</b></td><td><input type="text" [(ngModel)] = 'data.address' name="address" required></td></tr>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+<button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" [disabled]="!clinicForm.form.valid">Save changes</button>
+<button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>
+  

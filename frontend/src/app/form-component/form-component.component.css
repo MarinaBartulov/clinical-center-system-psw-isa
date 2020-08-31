@@ -1,0 +1,23 @@
+span {
+    text-align: left;
+
+}
+.validate:focus + .form-label,
+.validate:valid + .form-label {
+transform: translateY(-20px);
+font-size: 12px;
+}
+button.link { background:none;border:none; }
+button.link:focus{
+    color:rgb(88, 153, 190);
+}
+.titleMessage {
+    font-size: 23px;
+}
+.container{
+    border:3px solid #5645a1;
+    width: auto;
+    height: auto;
+    margin-left: 100px;
+    margin-top: 15px;
+}

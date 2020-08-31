@@ -1,0 +1,21 @@
+<div id="div-page" class="container-fluid">
+<h1>Clinical Center System</h1>
+<div id="div-login"  class="container-fluid">
+    <h2>{{pageTitle}}</h2>
+<form (ngSubmit) = "onClickedLogin()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input [(ngModel)]='_loginUser.email' type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required #email="ngModel" >
+      <small id="emailHelp" class="form-text text-muted">Email is required.</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input [(ngModel)]='_loginUser.password' type="password" class="form-control" name = "password" id="password" placeholder="Enter Password" required #password="ngModel">
+      <small id="emailHelp" class="form-text text-muted">Password is required.</small>
+    </div>
+    <button id="btn-login" type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Log in</button>
+    <button type="button" (click) = 'onRegisterClicked()' class="btn btn-primary">Register</button>
+  </form>
+</div>
+<p id="pError" *ngIf="_showError">Incorrect email or password.</p>
+</div>

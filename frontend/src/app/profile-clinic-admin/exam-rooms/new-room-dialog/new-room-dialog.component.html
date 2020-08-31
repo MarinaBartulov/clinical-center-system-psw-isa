@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>A new room</h1>
+<div mat-dialog-content>
+  <form  #roomForm="ngForm">
+      <table>
+          <tr><td><b>Name:</b></td><td><input type="text" [(ngModel)] = 'data.name' name="name" required autocomplete="off"></td></tr>
+          <tr><td><b>Number:</b></td><td><input type="number" [(ngModel)] = 'data.number' name="number" required autocomplete="off"></td></tr>
+          <label id="example-radio-group-label">Type</label>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="data.roomType" name="type" required>
+            <mat-radio-button class="example-radio-button" *ngFor="let type of types" [value]="type">
+                {{type}}
+            </mat-radio-button>
+            </mat-radio-group>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" [disabled]="!roomForm.form.valid">Add</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>
+

@@ -1,0 +1,11 @@
+button{
+    width:7em;
+}
+h5{
+    text-align: center;
+}
+
+textarea {
+    display:block;
+    height: auto; 
+}

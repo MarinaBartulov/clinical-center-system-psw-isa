@@ -1,0 +1,20 @@
+<h3 style="text-align: center;"> Free doctors for this term </h3>
+<div mat-dialog-content>
+  <div class='panel-body'>
+    <div class='table-responsive' style="margin-bottom: 2%;">
+        <table class='table' style="margin-top: 5%;">
+           
+            <tr> <th class='names'>Name and surname</th> <th class='names'> Add </th> </tr> 
+            <tr *ngFor="let d of _doctors let i = index"> <td class='item' >{{d.fullName}}</td> 
+                <td><button style="background-color: green;width:6em;margin-left: 25%;" type="button" class="btn btn-primary item" (click)='clickAddDoctor(d,i)'>Add</button></td>
+            </tr> 
+        </table>
+       
+    </div>
+</div>
+<div mat-dialog-actions>
+        <button type="button" class="btn btn-success" mat-button [mat-dialog-close]="data" (click) = "Reserve()" [disabled]='data.doctors.length==0'>Reserve</button>
+        <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+    </div>
+</div>
+<notifier-container></notifier-container>

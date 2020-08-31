@@ -1,0 +1,58 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Requests for absence</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+         <h3 style="text-align: center;margin: 1em;">Requests for absence</h3>   
+         <table *ngIf="_showTable">
+             <thead>
+                 <tr>
+                     <th style="width: 13%;">Name</th>
+                     <th style="width: 13%;">Surname</th>
+                     <th style="width: 10%;">Serial number</th>
+                     <th style="width: 10%;">Employee</th>
+                     <th style="width: 10%;">Type of absence</th>
+                     <th style="width: 12%;">Start date</th>
+                     <th style="width: 12%;">End date</th>
+                     <th style="width: 10%;">Approve</th>
+                     <th style="width: 10%;">Reject</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr *ngFor="let absence of _absences">
+                     <td>{{absence.employeeName}}</td>
+                     <td>{{absence.employeeSurname}}</td>
+                     <td>{{absence.employeeSerialNumber}}</td>
+                     <td>{{absence.employee}}</td>
+                     <td>{{absence.typeOfAbsence}}</td>
+                     <td>{{absence.startDate[2]}}/{{absence.startDate[1]}}/{{absence.startDate[0]}}</td>
+                     <td>{{absence.endDate[2]}}/{{absence.endDate[1]}}/{{absence.endDate[0]}}</td>
+                     <td><button class="btn btn-primary" style="background-color: green;width:7em;" (click)="approveRequest(absence.id)">Approve</button></td>
+                     <td><button class="btn btn-primary" style="background-color: red;width:7em;" (click)="rejectRequest(absence.id)">Reject</button></td>
+                 </tr>
+             </tbody>
+         </table>    
+    </div>
+    <h4 *ngIf="_showMsg" style="color: red;text-align: center;">There are no requests for absence.</h4>
+</div>
+
+<notifier-container></notifier-container>
+

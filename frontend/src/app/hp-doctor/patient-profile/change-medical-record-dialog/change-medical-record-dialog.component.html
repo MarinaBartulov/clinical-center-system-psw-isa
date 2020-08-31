@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Medical record</h1>
+<div mat-dialog-content>
+  <form  #userForm="ngForm">
+      <table>
+          <tr><td><b>Date of birth:</b></td><td><input type="text" [(ngModel)] = 'data.dateOfBirth' name="dateOfBirth"  autocomplete="off"></td></tr>
+          <tr><td><b>Height:</b></td><td><input type="number" [(ngModel)] = 'data.height' name="height" autocomplete="off"></td></tr>
+          <tr><td><b>Weight:</b></td><td><input type="number" [(ngModel)] = 'data.weight' name="weight" autocomplete="off"></td></tr>
+          <tr><td><b>Diopter:</b></td><td><input type="text" [(ngModel)] = 'data.diopter' name="diopter" autocomplete="off"></td></tr>
+          <tr><td><b>Blood type:</b></td><td><input type="text" [(ngModel)] = 'data.bloodType' name="bloodType" autocomplete="off"></td></tr>
+          <tr><td><b>Organ donor:</b></td><td><input type="text" [(ngModel)] = 'data.organDonor' name="organDonor" autocomplete="off"></td></tr>
+      </table>
+</form>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" >Save</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>

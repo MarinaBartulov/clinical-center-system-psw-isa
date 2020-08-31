@@ -1,0 +1,14 @@
+.mat-sort-header-container {
+    align-items: center;
+}
+.firstRow{
+    background-color: lightblue;
+}
+.startRow{
+  
+    border:3px solid gold;
+    background-color: rgb(248, 221, 98);
+}
+td {
+    border-top: 1px solid rgb(27, 27, 27);
+}

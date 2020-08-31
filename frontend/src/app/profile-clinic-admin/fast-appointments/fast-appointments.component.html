@@ -1,0 +1,164 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightskyblue; padding-left: 0;">
+        <div class="navbar-header">
+            <a id="logo" class="navbar-brand" href="#"><img src="assets/img/logo5.jpg" alt="logo" width="80em" height="63em"></a>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto disabled" href="#" style="color:darkblue">Clinic administrator: {{_currentAdmin.name}} {{_currentAdmin.surname}} - Fast appointments</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!--<a class="nav-link" [routerLink]="" (click)="clickedBack()">Back</a>-->
+                    <button class="btn btn-outline-secondary" (click)="clickedBack()"style=" margin: 4px" > Back </button>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <ul class="nav flex-column nav-pills" style="width: 10%; color: blue; background-color: lightskyblue; float:left;"> 
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >Clinic's profile</a>-->
+            <button class="btn btn-sm btn-outline-secondary" (click) = "clickedShowAllFA()" style="width:100%;color:darkblue;">Show all</button>
+        </li>  
+        <li class="nav-item">
+            <!--<a class="nav-link" [routerLink] = "" (click) = "clickedClinicProfile()" >General info</a>-->
+            <button class="btn btn-sm btn-outline-secondary" (click) = "clickedCreateNew()" style="width:100%;color:darkblue;">Create new</button>
+        </li>
+        
+    </ul>
+    <div style="width:90%;float: right;margin-top: 1em;">
+        <div class="card" style="width:95%;margin:auto;padding-bottom: 2em;" *ngIf="_showAllFA" >
+            <div class="card-content" style="background: lightskyblue">
+                <span class="card-title">All fast appointments</span>
+        </div>
+        <table class="table">
+            <thead style="background: lightskyblue">
+                <th style="width:5%;text-align: center;">Date</th>
+                <th style="width:4%;text-align: center;">Time</th>
+                <th style="width:16%;text-align: center;">Type of exam</th>
+                <th style="width:4%;text-align: center;">Duration</th>
+                <th style="width:11%;text-align: center;">Room</th>
+                <th style="width:10%;text-align: center;">Doctor</th>
+                <th style="width:10%;text-align: center;">Price(&euro;)</th>
+                <th style="width:5%;text-align: center;">Discount(%)</th>
+                <th style="width:10%;text-align: center;">Patient</th>
+                <th style="width:10%;text-align: center;">Status</th> <!--Free,Scheduled,Finished-->
+            </thead>
+            <tbody>
+                <tr *ngFor="let free of _freeFA" style="background-color: rgb(140, 245, 140)">
+                    <td>{{free.date[2]}}/{{free.date[1]}}/{{free.date[0]}}</td>
+                    <td>{{free.time[0]}}:{{free.time[1]}}0</td>
+                    <td>{{free.nameExamType}}</td>
+                    <td>1h</td>
+                    <td>{{free.nameAndNumberRoom}}</td>
+                    <td>{{free.fullNameDoctor}}</td>
+                    <td>{{free.price}}</td>
+                    <td>{{free.discount}}</td>
+                    <td>{{free.fullNamePatient}}</td>
+                    <td>FREE</td>
+                </tr>
+                <tr *ngFor="let scheduled of _scheduledFA" style="background-color:rgb(253, 253, 145)">
+                    <td>{{scheduled.date[2]}}/{{scheduled.date[1]}}/{{scheduled.date[0]}}</td>
+                    <td>{{scheduled.time[0]}}:{{scheduled.time[1]}}0</td>
+                    <td>{{scheduled.nameExamType}}</td>
+                    <td>1h</td>
+                    <td>{{scheduled.nameAndNumberRoom}}</td>
+                    <td>{{scheduled.fullNameDoctor}}</td>
+                    <td>{{scheduled.price}}</td>
+                    <td>{{scheduled.discount}}</td>
+                    <td>{{scheduled.fullNamePatient}}</td>
+                    <td>SCHEDULED</td>
+                </tr>
+                <tr *ngFor="let finished of _finishedFA" style="background-color: rgb(255, 122, 122);">
+                    <td>{{finished.date[2]}}/{{finished.date[1]}}/{{finished.date[0]}}</td>
+                    <td>{{finished.time[0]}}:{{finished.time[1]}}0</td>
+                    <td>{{finished.nameExamType}}</td>
+                    <td>1h</td>
+                    <td>{{finished.nameAndNumberRoom}}</td>
+                    <td>{{finished.fullNameDoctor}}</td>
+                    <td>{{finished.price}}</td>
+                    <td>{{finished.discount}}</td>
+                    <td>{{finished.fullNamePatient}}</td>
+                    <td>FINISHED</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="divForm" class="card" style="width:80%;margin:auto;padding-bottom: 2em;margin-bottom:2em;" *ngIf="_showCreateNew" >
+        <div class="card-content" style="background: lightskyblue">
+            <span class="card-title">Create a new fast appointment</span>
+    </div>  
+    <form class="col white" style="width:70%;margin:auto;" (ngSubmit) = "createNewFA()" #newFAForm="ngForm">
+        <div class="row">
+            <div class="input-field col">
+                <div class="input-group">
+                    <input class="form-control" placeholder="Choose a date"
+                           name="dp" [(ngModel)]="_date" [minDate]="_today" (ngModelChange)="onChangeDate($event)" ngbDatepicker #d="ngbDatepicker" autocomplete="off" required>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--<div class="input-field col">
+                <p>Choose time:</p><ngb-timepicker [(ngModel)]="_time" (ngModelChange)="onChangeTime($event)" name="time" #time="ngModel" required></ngb-timepicker>
+            </div>-->
+            <div class="input-field col">
+                <p>Choose time:</p>
+                <ng-select style="margin: 0.7em;"  [items]="_examTerms"
+                  bindLabel="time"
+                  placeholder="Select time"
+                  appendTo="body"
+                  [(ngModel)]="_selectedTerm" (ngModelChange)="onChangeTime($event)" #time name="time" required>
+                </ng-select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col">
+                <p>Select a type for exam you are creating:</p>
+                <ng-select style="margin: 0.7em;"  [items]="_examTypes"
+                  bindLabel="name"
+                  placeholder="Select an exam type"
+                  appendTo="body"
+                  [(ngModel)]="_selectedType" (ngModelChange)="onChange($event)" #type name="type" required>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col">
+                <p>Available rooms: <span *ngIf="_noRooms" style="color: red;">There are no available rooms.</span></p>
+                <ng-select style="margin: 0.7em;"  [items]="_rooms"
+                bindLabel="nameAndNumber"
+                placeholder="Select a room"
+                appendTo="body"
+                [(ngModel)]="_selectedRoom" #room name="room" required>
+              </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col">
+                <p>Available doctors: <span *ngIf="_noDoctors" style="color: red;">There are no available doctors.</span></p>
+                <ng-select style="margin: 0.7em;"  [items]="_doctors"
+                  bindLabel="fullName"
+                  placeholder="Select a doctor"
+                  appendTo="body"
+                  [(ngModel)]="_selectedDoctor" #doctor name="doctor" required>
+                </ng-select>
+            </div>        
+        </div>
+        <button style="width:7em;margin-right:2em;" type="submit" class="btn btn-primary" [disabled]="!newFAForm.form.valid" >Create</button> 
+        <button style="width:7em;margin-right:2em;" type="button" (click)="reset()" class="btn btn-primary">Reset</button>
+    </form> 
+    </div>
+</div>
+</div>
+
+<notifier-container></notifier-container>
+

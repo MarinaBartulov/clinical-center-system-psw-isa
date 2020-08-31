@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Send email to {{data.name}} {{data.surname}}</h1>
+
+<div mat-dialog-content>
+    <h5> Reciever: {{data.email}} </h5>
+    <form  #messageForm="ngForm">
+      <textarea rows="8" cols="60" wrap="hard" name="message" [(ngModel)] = 'data.message' required> </textarea>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-success" mat-button [mat-dialog-close]="data" [disabled]="!messageForm.form.valid">Send</button>
+  <button type="button" class="btn btn-danger" mat-button (click)="Cancel()">Cancel</button>
+</div>

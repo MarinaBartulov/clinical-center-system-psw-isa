@@ -1,0 +1,23 @@
+<div class= "row container-board">
+    <div class="col classBorder">
+  
+    
+      <table matSort (matSortChange)="sortData($event)">
+          <tr class="startRow">
+            <th mat-sort-header="date">Date</th>
+            <th mat-sort-header="startTime">Start</th>
+            <th mat-sort-header="endTime">End</th>
+            <th mat-sort-header="surgeryType">Type</th>
+          </tr>
+        
+          <tr *ngFor="let surgery of _sortedSurgeries" >         
+            <td>{{surgery.date[2]}}/{{surgery.date[1]}}/{{surgery.date[0]}}</td>
+            <td>{{formatTime(surgery.startTime)}}</td>
+            <td>{{formatTime(surgery.endTime)}}</td>
+            <td>{{surgery.surgeryType}}</td>   
+          </tr>
+        </table>
+      </div>
+   
+  </div>
+  

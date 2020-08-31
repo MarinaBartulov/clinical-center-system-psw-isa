@@ -1,0 +1,25 @@
+.success, .error {
+    height: 20vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.success h1, .error h1 {
+     text-align: center;
+     margin-top: 10%;
+}
+
+.success h1 {
+    color: green;
+}
+
+.success button {
+    background-color: green;
+    
+}
+
+.error h1, .error h2 {
+    color: red;
+    text-align: center;
+}

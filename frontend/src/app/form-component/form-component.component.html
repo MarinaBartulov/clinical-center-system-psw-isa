@@ -1,0 +1,75 @@
+<div>
+    <div id="patientForm" *ngIf="showHome">
+        <div class="row">
+            <div class="col center-align container">
+                <div class="card-content black-text">
+                    <h3 class="titleMessage"> {{changePasswordMessage}}</h3>
+                </div>
+                <form class="col" (ngSubmit)="onChangeClicked()" #userRegistrationForm="ngForm">
+                    <div class="row" *ngIf="!show">
+                        <div class="input-field col">
+                            <input type="text" id="Ip" class="validate" name="name" #userName="ngModel"
+                                [(ngModel)]="_signUpUser.name" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!">Name:</label>
+                        </div>
+                        <div class="input-field col">
+                            <input type="text" class="validate" name="surname" #surname="ngModel"
+                                [(ngModel)]="_signUpUser.surname" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!">Surname:</label>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!show">
+                        <div class="input-field col">
+                            <input type="text" class="validate" name="city" #city="ngModel"
+                                [(ngModel)]="_signUpUser.city" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!">City:</label>
+                        </div>
+                        <div class="input-field col">
+                            <input type="text" class="validate" name="address" #adress="ngModel"
+                                [(ngModel)]="_signUpUser.address" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!"> Address:</label>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!show">
+                        <div class="input-field col">
+                            <input type="text" class="validate" name="country" #country="ngModel"
+                                [(ngModel)]="_signUpUser.country" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!"> Country</label>
+                        </div>
+                        <div class="input-field col">
+                            <input type="email" class="validate" disabled name="email" #email="ngModel"
+                                [(ngModel)]="_signUpUser.email" />
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!show">
+                        <div class="input-field col">
+                            <input type="number" class="validate" name="phoneNumber" #phoneNumber="ngModel"
+                                [(ngModel)]="_signUpUser.phoneNumber" required autocomplete="off" />
+                            <label class="form-label" data-error="Required Field!"> Phone number</label>
+                        </div>
+                        <div class="input-field col">
+
+                            <input type="text" class="validate" name="serialNumber" #serialNumber="ngModel"
+                                [(ngModel)]="_signUpUser.serialNumber" disabled autocomplete="off" />
+                            <label class="form-label" data-error="You must insert 13 numbers"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col">
+
+                            <button class="btn-large btn-submit" [disabled]="!userRegistrationForm.valid" type="submit">
+                                Submit</button>
+                            <div class="col" *ngIf="!show">
+                                <button class="link" (click)="showPasswordInput()">Change your password?"</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+

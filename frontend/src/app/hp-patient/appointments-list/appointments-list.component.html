@@ -1,0 +1,34 @@
+<div class= "row" >
+
+      <table id="table-appointments" class="table">
+   
+        <tbody>
+          <ng-container>
+            <tr class="startRow" >
+              <td style="text-align: center;"> {{doctor.name}} </td>
+              <td style="text-align: center;"> {{doctor.surname}}  </td>
+              <td colspan="2"><star-rating value="{{doctor.rating}}" totalstars="5" checkedcolor="red" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating></td>
+            </tr>
+       
+
+           
+            <ng-container>
+              <tr name="counting-appointments" *ngFor="let appointment of sortedAppointments">
+                <td>{{appointment.type}}</td>
+                <td>{{appointment.date[2]}}/{{appointment.date[1]}}/{{appointment.date[0]}}</td>
+                <td>{{formatTime(appointment.time)}}</td>
+                <td style="text-align: center;"> <button id="{{appointment.id}}"  name="appointment-buttons" class="btn btn-primary" style="background-color: lightgreen;" (click)="reserveAppointment(appointment)">Reserve</button></td>
+                
+                
+              </tr>
+
+           
+            </ng-container>
+           </ng-container>
+      
+        </tbody>
+      </table>
+
+</div>
+
+<notifier-container></notifier-container>

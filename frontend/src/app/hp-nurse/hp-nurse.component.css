@@ -1,0 +1,62 @@
+#div-page{
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding : 0;
+    background-image: url('nurse1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height:100vh;
+
+}
+th {
+    background-color: lightskyblue;
+}
+td{
+    background-color: beige;
+}
+
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+}
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+#logo{
+    cursor:default;
+    pointer-events:none;
+}
+
+#name{
+    cursor:default;
+    pointer-events:none;
+}
+
+.table-responsive{
+    margin: auto;
+    height: 40%;
+    
+}
+.panel-body{
+    margin: auto;
+    height: 40%;
+    
+}
+.mat-badge-content {
+    background: red;
+    color: white;
+}

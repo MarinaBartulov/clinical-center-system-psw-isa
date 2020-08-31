@@ -1,0 +1,30 @@
+<div class="card" style="background: lightgreen;">
+    <div class="card-content">
+            <span class="card-title">Register new clinic</span>
+    </div>
+    <form class="col white" (ngSubmit) = "clickRegisterClinic()" #clinicForm="ngForm">
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newClinic.name' type="text"  name="name"  placeholder="Enter name here" required #name="ngModel">
+                    <small id="nameHelp" class="form-text text-muted">Name is required and must be unique.</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newClinic.address' type="text" name="address" placeholder="Enter address here" required #address="ngModel">
+                    <small id="addressHelp" class="form-text text-muted">Address is required.</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newClinic.description' type="text" name="description"  placeholder="Enter description" required #description="ngModel">
+                    <small id="countryHelp" class="form-text text-muted">Country is required.</small>
+                </div>
+            </div>
+            <button type="button" (click) = 'onBackClicked()' class="btn btn-primary">Back</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!clinicForm.form.valid" >Confirm</button>
+        </form>
+</div>
+
+<notifier-container></notifier-container>
+

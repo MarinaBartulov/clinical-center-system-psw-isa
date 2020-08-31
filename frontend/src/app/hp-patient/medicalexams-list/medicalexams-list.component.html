@@ -1,0 +1,30 @@
+<div class= "row container-board">
+    <div class="col classBorder">
+  
+    
+      <table matSort (matSortChange)="sortData($event)">
+          <tr class="startRow">
+            <th mat-sort-header="date">Date</th>
+            <th mat-sort-header="startTime">Start</th>
+            <th mat-sort-header="endTime">End</th>
+            <th mat-sort-header="examType">Type</th>
+            <th mat-sort-header="doctor">Doctor</th>
+          </tr>
+        
+          <tr *ngFor="let exam of _sortedMedicalExams" >
+           
+          
+            <td>{{exam.date}}</td>
+            <td>{{exam.startTime[2]}}h:{{exam.startTime[1]}}min </td>
+            <td>{{exam.endTime[2]}}h:{{exam.endTime[1]}}min </td>
+            <td>{{exam.examType}}</td>   
+            <td>{{exam.doctor}}</td>
+            <!-- <td><button (click)="showDoctorTimes()" title = "Show available appointments!">{{doctor.name}} </button></td> -->
+       
+            
+          </tr>
+        </table>
+      </div>
+   
+  </div>
+  

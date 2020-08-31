@@ -1,0 +1,33 @@
+th, td {
+   /* border-top: 1px solid #ddd;*/
+   
+    text-align: left;
+  }
+td {
+    border-top: 1px solid #ddd;
+}
+
+tr:hover {
+  background: 
+  linear-gradient(rgb(255, 255, 255) 0%, rgb(54, 45, 177) 90%), 
+  linear-gradient(to right, rgb(113, 113, 121) 0%, rgb(90, 199, 233) 90%);
+
+  background-blend-mode: screen, difference, lighten;
+}
+
+.startRow{
+
+
+  background: 
+  linear-gradient(rgb(238, 231, 231) 0%, rgb(44, 32, 200) 90%), 
+  linear-gradient(to right, rgb(83, 83, 90) 0%, rgb(75, 20, 85) 90%);
+
+  background-blend-mode: screen, difference, lighten;
+}
+
+.container-board {
+    border:3px solid #5645a1;
+    width: auto;
+    height: auto;
+    margin-top: 15px;
+}

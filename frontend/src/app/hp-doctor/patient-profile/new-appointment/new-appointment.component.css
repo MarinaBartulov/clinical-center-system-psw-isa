@@ -1,0 +1,40 @@
+.newAppointment{
+    background-color:rgb(90, 87, 104);
+    margin-right: 20px;
+    margin-left:  300px;
+}
+.leftMargin20{
+    margin-left: 120px;
+    margin-right : auto;
+  
+}
+.leftMargin2{
+   
+    margin-left: 490px;
+    margin-top: 25px;
+   
+  
+}
+.topMargin {
+    margin-top: 30px;
+    margin-left: 80px;
+    margin-right:auto;
+}
+.sel2:focus{
+    background-color: transparent;
+    
+}
+.sel{
+    margin-left : 2px;
+    margin-right : 20px;
+  }
+.sel2{
+  
+    width: 150px;
+    height: 35px;
+    
+  
+}
+.formCss{
+ background-color:  lightsteelblue; 
+}

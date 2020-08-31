@@ -1,0 +1,66 @@
+<div class="card" style="background: lightgreen;">
+    <div class="card-content">
+            <span class="card-title">Register new clinic administrator</span>
+    </div>
+    <form class="col white" (ngSubmit) = "clickRegisterClinicAdmin()" #adminForm="ngForm">
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.name' type="text"  name="name"  placeholder="Enter name here" required #name="ngModel">
+                    <small id="nameHelp" class="form-text text-muted">Name is required.</small>
+                </div>
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.surname' type="text" name="surname" placeholder="Enter surname here" required #surname="ngModel">
+                    <small id="surnameHelp" class="form-text text-muted">Surname is required.</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.email' type="email" name="email" placeholder="Enter email here" autocomplete="off" [pattern] = "emailPattern" required #email="ngModel">
+                    <small id="emailHelp" class="form-text text-muted">Email is required. Pattern: something@email.com</small>
+                </div>
+          
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.password' type="password" name = "password" placeholder="Enter password here" required #password="ngModel" minlength="6">
+                    <small id="passwordHelp" class="form-text text-muted">Password is required and must contain at least 6 characters/numbers</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.address' type="text" name="address" placeholder="Enter address here" required #address="ngModel">
+                    <small id="addressHelp" class="form-text text-muted">Address is required.</small>
+                </div>
+  
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.city' type="text" name="city" placeholder="Enter city here" required #city="ngModel">
+                    <small id="cityHelp" class="form-text text-muted">City is required.</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.country' type="text" name="country"  placeholder="Enter country" required #country="ngModel">
+                    <small id="countryHelp" class="form-text text-muted">Country is required.</small>
+                </div>
+ 
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.phoneNumber' type="number" name="phoneNumber" placeholder="Enter phone number here" required #phoneNumber="ngModel">
+                    <small id="phoneNumberHelp" class="form-text text-muted">Phone number is required.</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input class="validate" [(ngModel)]='_newAdmin.serialNumber' type="number" name="serialNumber"  placeholder="Enter serial number" pattern="[0-9]{13,13}"  required #serialNumber="ngModel">
+                    <small id="serialNumberHelp" class="form-text text-muted">Serial number is required.</small>
+                </div>
+                <div class="select-field col">
+                <select class="form-control" [(ngModel)]="_selectedClinic" name="clinic" required>
+                        <option [ngValue]="null" disabled>Choose a clinic</option>
+                        <option *ngFor="let clinic of _clinics" [ngValue]="clinic.id"> {{clinic.name}}</option>  
+                </select>
+                <small id="serialNumberHelp" class="form-text text-muted">Clinic is required.</small>
+               </div>
+            </div>
+                <button type="button" (click) = 'onBackClicked()' class="btn btn-primary">Back</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid" >Confirm</button>
+        </form>
+</div>
+<notifier-container></notifier-container>
